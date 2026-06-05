@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import { Link, Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Search, User, ShoppingBag, X, ShieldCheck, ChevronDown, Minus, Plus, ArrowRight } from 'lucide-react'
+import { ShoppingBag, X, ShieldCheck, ChevronDown, Minus, Plus, ArrowRight } from 'lucide-react'
 
 const whatsapp = 'https://wa.me/971551495060'
 const socials = { instagram:'https://www.instagram.com/niche_center/', threads:'https://www.threads.com/@niche_center' }
@@ -79,11 +79,11 @@ function IG(){return<svg width="18" height="18" viewBox="0 0 24 24" fill="none" 
 
 function Header(){
   const {cnt,setOpen}=useCart();const {l,s,t}=useLang()
-  return<><div className="announce"><Link to="/">{s('announce')}</Link></div><header className="site-header"><div className="header-inner">
+  return <header className="site-header"><div className="header-inner">
     <Link to="/" className="logo" aria-label="Niche Center home">NICHE CENTER</Link>
-    <nav className="header-nav"><Link to="/">{s('shop')}</Link><a href="#collections">{s('coll')}</a><a href="#about">{s('about')}</a><a href="#membership">{s('membership')}</a></nav>
-    <div className="header-actions"><button aria-label="Search"><Search size={22}/></button><button onClick={t}>{l==='ar'?'EN':'AR'}</button><a href={whatsapp} target="_blank" rel="noreferrer"><WA/></a><a className="desktop-icon" href={socials.instagram} target="_blank" rel="noreferrer"><IG/></a><button onClick={()=>setOpen(true)} className="cart-icon" aria-label="Open cart"><ShoppingBag size={23}/>{cnt>0&&<span>{cnt}</span>}</button></div>
-  </div></header></>
+    <nav className="header-nav"><Link to="/">{s('shop')}</Link><a href="#collections">{s('coll')}</a><a href="#about">{s('about')}</a></nav>
+    <div className="header-actions"><button className="lang-toggle" onClick={t}>{l==='ar'?'EN':'AR'}</button><a className="wa-link" href={whatsapp} target="_blank" rel="noreferrer">WHATSAPP</a><button onClick={()=>setOpen(true)} className="cart-icon" aria-label="Open cart"><ShoppingBag size={20}/><span>{cnt||0}</span></button></div>
+  </div></header>
 }
 
 function Hero(){
