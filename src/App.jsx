@@ -1,254 +1,217 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import { Link, Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ChevronDown, Minus, Plus, ShoppingBag, X, Truck, ShieldCheck, Sparkles } from 'lucide-react'
+import { ShoppingBag, X, Truck, ShieldCheck, Sparkles, ChevronDown, Minus, Plus } from 'lucide-react'
 
 const whatsapp = 'https://wa.me/971551495060'
-const socials = {
-  instagram: 'https://www.instagram.com/niche_center/',
-  threads: 'https://www.threads.com/@niche_center',
-  facebook: 'https://www.facebook.com/NicheCenter',
-}
+const socials = { instagram:'https://www.instagram.com/niche_center/', threads:'https://www.threads.com/@niche_center' }
 
-const decantSizes = [
-  { label: '2ML', multiplier: 0.45 },
-  { label: '3ML', multiplier: 0.62 },
-  { label: '5ML', multiplier: 1 },
-  { label: '10ML', multiplier: 1.82 },
-  { label: '30ML', multiplier: 4.95 },
-]
+const sizes = [{l:'2ML',m:.45},{l:'3ML',m:.62},{l:'5ML',m:1},{l:'10ML',m:1.82},{l:'30ML',m:4.95}]
 
 const products = [
-  { id:'bdk-gris-charnel', brand:'BDK Parfums', name:'Gris Charnel Decant', arName:'تقسيمة غري تشارنيل', family:'Warm Spicy', price:68, img:'/images/niche-center/bdk-gris-charnel.webp',
-    color:'#c4965a', color2:'#f5e6c8', notes:['Saffron','Cardamom','Fig','Iris','Sandalwood','Vanilla'],
-    story:'A warm, sophisticated blend from the Parisian niche house BDK Parfums. Spicy saffron meets creamy fig and sandalwood.',
-    arStory:'مزيج راقي ودافئ من بيت العطور الباريسي BDK. زعفران حار يلتقي بالتين والصندل الكريمي.' },
-  { id:'bdk-riviera', brand:'BDK Parfums', name:'Riviera Decant', arName:'تقسيمة ريفييرا', family:'Green Aromatic', price:72, img:'/images/niche-center/bdk-riviera.webp',
-    color:'#23756b', color2:'#d0f0e8', notes:['Bergamot','Fig Leaf','Iris','Musk','Cedar','Green Notes'],
-    story:'A vibrant green aromatic inspired by the French Riviera. Crisp, elegant and effortlessly fresh.',
-    arStory:'أخضر منعش مستوحى من الريفييرا الفرنسية. أنيق ومنعش لأيام الإمارات.' },
-  { id:'bdk-rouge-ardent', brand:'BDK Parfums', name:'Rouge Ardent Decant', arName:'تقسيمة روج أردنت', family:'Spicy Woody', price:74, img:'/images/niche-center/bdk-rouge-ardent.webp',
-    color:'#b83040', color2:'#ffd8d0', notes:['Pink Pepper','Rose','Cinnamon','Patchouli','Incense','Vanilla'],
-    story:'A bold, fiery rose-patchouli from BDK. Spicy, warm and captivating for confident evenings.',
-    arStory:'ورد جريء مع باتشولي. حار ودافئ وجذاب للمساءات الواثقة.' },
-  { id:'crivelli-cuir-infrarouge', brand:'Maison Crivelli', name:'Cuir InfraRouge Extrait', arName:'تقسيمة كوير إنفراروج', family:'Leather Spicy', price:98, img:'/images/niche-center/crivelli-cuir-infrarouge.webp',
-    color:'#d47a30', color2:'#fce8c8', notes:['Saffron','Leather','Cumin','Labdanum','Incense','Amber'],
-    story:'An extrait concentration from Maison Crivelli. Smouldering leather with saffron and amber.',
-    arStory:'إكسترا من ميزون كريفيلي. جلد مشتعل مع زعفران وعنبر.' },
-  { id:'amouage-reasons', brand:'Amouage', name:'Reasons Decant', arName:'تقسيمة ريزونز', family:'Creamy Woody', price:92, img:'/images/niche-center/amouage-reasons.webp',
-    color:'#d4c8a8', color2:'#f5f0e0', notes:['Bergamot','Cardamom','Oud','Sandalwood','Amber','Musk'],
-    story:'A creamy, woody masterpiece from Amouage. Smooth cardamom and rich sandalwood with a touch of oud.',
-    arStory:'تحفة كريمية وخشبية من أمياج. هيل ناعم وخشب صندل غني بلمسة عود.' },
-  { id:'amouage-reflection', brand:'Amouage', name:'Reflection Man Decant', arName:'تقسيمة ريفليكشن مان', family:'Fresh Aromatic', price:86, img:'/images/niche-center/amouage-reflection-man.webp',
-    color:'#e8e0d0', color2:'#ffffff', notes:['Bergamot','Rosemary','Juniper','Sandalwood','Cedar','Musk'],
-    story:'An iconic fresh aromatic from Amouage. Clean, elegant and impossibly refined.',
-    arStory:'أيقونة عطرية منعشة من أمياج. نظيف وأنيق ومصقول بشكل لا يصدق.' },
+  { id:'bdk-gris-charnel', brand:'BDK Parfums', name:'Gris Charnel Decant', ar:'تقسيمة غري تشارنيل', family:'Warm Spicy', price:68, img:'/images/niche-center/bdk-gris-charnel.webp', color:'#c4965a' },
+  { id:'bdk-riviera', brand:'BDK Parfums', name:'Riviera Decant', ar:'تقسيمة ريفييرا', family:'Green Aromatic', price:72, img:'/images/niche-center/bdk-riviera.webp', color:'#23756b' },
+  { id:'bdk-rouge-ardent', brand:'BDK Parfums', name:'Rouge Ardent Decant', ar:'تقسيمة روج أردنت', family:'Spicy Woody', price:74, img:'/images/niche-center/bdk-rouge-ardent.webp', color:'#b83040' },
+  { id:'crivelli-cuir', brand:'Maison Crivelli', name:'Cuir InfraRouge Extrait', ar:'تقسيمة كوير إنفراروج', family:'Leather Spicy', price:98, img:'/images/niche-center/crivelli-cuir-infrarouge.webp', color:'#d47a30' },
+  { id:'amouage-reasons', brand:'Amouage', name:'Reasons Decant', ar:'تقسيمة ريزونز', family:'Creamy Woody', price:92, img:'/images/niche-center/amouage-reasons.webp', color:'#d4c8a8' },
+  { id:'amouage-reflection', brand:'Amouage', name:'Reflection Man Decant', ar:'تقسيمة ريفليكشن مان', family:'Fresh Aromatic', price:86, img:'/images/niche-center/amouage-reflection-man.webp', color:'#e8e0d0' },
 ]
 
 const collections = [
-  { id:'best', title:'Best Sellers', ar:'الأكثر طلباً', copy:'Customer favourites from 3000+ UAE orders.', items:['bdk-gris-charnel','amouage-reasons','crivelli-cuir-infrarouge'] },
-  { id:'fresh', title:'Fresh & Daily', ar:'فريش يومي', copy:'Clean, aromatic profiles for UAE weather.', items:['amouage-reflection','bdk-riviera'] },
-  { id:'luxury', title:'Luxury Icons', ar:'أيقونات فاخرة', copy:'The most prestigious niche houses in decant sizes.', items:['bdk-rouge-ardent','amouage-reasons','crivelli-cuir-infrarouge'] },
+  { id:'best', title:'Best Sellers', ar:'الأكثر طلباً', copy:'The fragrances our customers love most.', items:['bdk-gris-charnel','amouage-reasons','crivelli-cuir'] },
+  { id:'fresh', title:'Fresh & Daily', ar:'فريش يومي', copy:'Light, clean scents perfect for UAE days.', items:['amouage-reflection','bdk-riviera'] },
+  { id:'luxury', title:'Luxury Icons', ar:'أيقونات فاخرة', copy:'The most prestigious niche houses in decant sizes.', items:['bdk-rouge-ardent','amouage-reasons','crivelli-cuir'] },
 ]
 
 const copy = {
   en: {
-    announcement:'Original niche decants · UAE delivery · +3000 happy customers · WhatsApp order',
-    shop:'Decants', collections:'Collections', about:'About',
-    heroKicker:'Niche Center Perfumes AE', heroTitle:'Original luxury decants, in smarter sizes.',
-    heroBody:'Try Xerjoff, Amouage, Byredo, Frederic Malle and more before buying the full bottle. Premium decants from original retail bottles — no copies, no oils.',
+    announce:'Original niche decants · UAE delivery · +3000 happy customers · Order via WhatsApp',
+    shop:'Decants', coll:'Collections', about:'About',
+    hero1:'Niche Center Perfumes AE', hero1h:'Original luxury decants, in smarter sizes.',
+    hero1p:'Try Xerjoff, Amouage, Byredo and more before buying the full bottle. Premium decants from original retail bottles.',
     cta:'Shop Decants', dm:'Order via WhatsApp',
-    proof1:'3000+ Happy Customers', proof2:'2ML · 3ML · 5ML · 10ML · 30ML', proof3:'Fast UAE Delivery',
-    best:'Our Decants', bestCta:'View All', whyTitle:'Why Decants?',
-    original:'100% Original', originalBody:'Every decant is transferred directly from original retail bottles. No copies, no inspired oils, no mixing.',
-    sizes:'Smart Sizes', sizesBody:'Choose from 2ML to 30ML for discovery, travel, office or daily wear.',
-    delivery:'Fast UAE Delivery', deliveryBody:'Free delivery across the UAE. Order via WhatsApp or Instagram DM.',
-    add:'Add to Bag', size:'Size', notes:'Notes', description:'Description',
-    authenticity:'Authenticity', related:'You May Also Like',
-    cart:'Your Bag', empty:'Your bag is empty.', subtotal:'Subtotal', checkout:'Checkout', keep:'Continue Shopping',
+    hero2:'Try Before You Buy', hero2h:'Over 100 niche fragrances.', hero2p:'Choose from 2ML to 30ML sizes. 100% original, transferred from retail bottles.',
+    hero3:'UAE Delivery', hero3h:'Fast delivery across the UAE.', hero3p:'Free shipping on orders over 200 AED. Express 4-hour delivery in Dubai available.',
+    best:'Featured Decants', view:'View All',
+    orig:'100% Original', origb:'Every decant from original retail bottles. No copies.',
+    smart:'Smart Sizes', smartb:'2ML to 30ML for discovery, travel or daily wear.',
+    fast:'Fast UAE Delivery', fastb:'Free delivery UAE-wide. Order via WhatsApp or Instagram.',
+    add:'Add to Bag', size:'Size',
+    cart:'Your Bag', empty:'Your bag is empty.', subtotal:'Subtotal', chkout:'Checkout', keep:'Continue Shopping',
     free:'Free delivery unlocked', addFree:'Add', forFree:'for free UAE delivery',
-    contact:'Contact', deliveryForm:'Delivery', payment:'Payment', place:'Place Order', orderSummary:'Order Summary',
-    confirmed:'Order Confirmed', confirmedBody:'Thank you! We will confirm your order via WhatsApp shortly.',
+    contact:'Contact', del:'Delivery', pay:'Payment', place:'Place Order', summary:'Order Summary',
+    confirmed:'Order Confirmed', confirmedBody:'Thank you! We will confirm via WhatsApp shortly.',
   },
   ar: {
-    announcement:'تقسيمات عطور نيش أصلية · توصيل الإمارات · +3000 عميل · الطلب عبر واتساب',
-    shop:'التقسيمات', collections:'المجموعات', about:'عن المتجر',
-    heroKicker:'نيش سنتر للعطور', heroTitle:'عطور نيش أصلية بأحجام ذكية.',
-    heroBody:'جرّب Xerjoff و Amouage و Byredo و Frederic Malle قبل شراء الزجاجة الكاملة. تقسيمات فاخرة من الزجاجات الأصلية.',
+    announce:'تقسيمات عطور نيش أصلية · توصيل الإمارات · +3000 عميل · الطلب عبر واتساب',
+    shop:'التقسيمات', coll:'المجموعات', about:'عن المتجر',
+    hero1:'نيش سنتر للعطور', hero1h:'عطور نيش أصلية بأحجام ذكية.',
+    hero1p:'جرّب Xerjoff و Amouage و Byredo قبل شراء الزجاجة الكاملة.',
     cta:'تسوق التقسيمات', dm:'اطلب عبر واتساب',
-    proof1:'+3000 عميل سعيد', proof2:'2مل · 3مل · 5مل · 10مل · 30مل', proof3:'توصيل سريع الإمارات',
-    best:'تقسيماتنا', bestCta:'عرض الكل', whyTitle:'لماذا التقسيمات؟',
-    original:'أصلي 100%', originalBody:'كل تقسيمة مسحوبة مباشرة من الزجاجة الأصلية. بدون كوبي أو زيوت.',
-    sizes:'أحجام ذكية', sizesBody:'اختر من 2مل إلى 30مل للتجربة، السفر، العمل أو الاستخدام اليومي.',
-    delivery:'توصيل سريع الإمارات', deliveryBody:'توصيل مجاني في جميع أنحاء الإمارات. اطلب عبر واتساب أو إنستغرام.',
-    add:'أضف للسلة', size:'الحجم', notes:'النوتات', description:'الوصف',
-    authenticity:'الأصالة', related:'قد يعجبك أيضاً',
-    cart:'السلة', empty:'السلة فارغة.', subtotal:'المجموع', checkout:'الدفع', keep:'متابعة التسوق',
-    free:'تم تفعيل التوصيل المجاني', addFree:'أضف', forFree:'للتوصيل المجاني',
-    contact:'بيانات التواصل', deliveryForm:'التوصيل', payment:'الدفع', place:'تأكيد الطلب', orderSummary:'ملخص الطلب',
-    confirmed:'تم تأكيد الطلب', confirmedBody:'شكراً! سنؤكد طلبك عبر واتساب قريباً.',
+    hero2:'جرّب قبل الشراء', hero2h:'أكثر من 100 عطر نيش.', hero2p:'اختر من 2مل إلى 30مل. أصلية 100%.',
+    hero3:'توصيل الإمارات', hero3h:'توصيل سريع في جميع أنحاء الإمارات.', hero3p:'توصيل مجاني للطلبات فوق 200 درهم.',
+    best:'تقسيمات مختارة', view:'عرض الكل',
+    orig:'أصلي 100%', origb:'كل تقسيمة من الزجاجة الأصلية.', smart:'أحجام ذكية', smartb:'2مل إلى 30مل.',
+    fast:'توصيل سريع', fastb:'توصيل مجاني في الإمارات.', add:'أضف للسلة', size:'الحجم',
+    cart:'السلة', empty:'السلة فارغة.', subtotal:'المجموع', chkout:'الدفع', keep:'متابعة',
+    free:'تم التوصيل المجاني', addFree:'أضف', forFree:'للتوصيل المجاني',
+    contact:'بيانات التواصل', del:'التوصيل', pay:'الدفع', place:'تأكيد الطلب', summary:'ملخص الطلب',
+    confirmed:'تم التأكيد', confirmedBody:'شكراً! سنؤكد عبر واتساب قريباً.',
   }
 }
 
-const money = n => `AED ${n.toLocaleString()}`
-const getProduct = id => products.find(p => p.id === id) || products[0]
-const useLangText = () => useContext(LangContext)
+const AED = n => `AED ${n.toLocaleString()}`
+const getP = id => products.find(p=>p.id===id)||products[0]
+const useLang = () => useContext(LangContext)
 const LangContext = createContext(null)
 function LangProvider({children}){
-  const [lang,setLang] = useState(()=>localStorage.getItem('nc-lang')||'en')
-  useEffect(()=>{localStorage.setItem('nc-lang',lang);document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr'},[lang])
-  const value=useMemo(()=>({lang,isAr:lang==='ar',toggle:()=>setLang(x=>x==='ar'?'en':'ar'),t:key=>copy[lang][key]||copy.en[key]||key}),[lang])
-  return <LangContext.Provider value={value}>{children}</LangContext.Provider>
+  const [l,set]=useState(()=>localStorage.getItem('nc-l')||'en')
+  useEffect(()=>{localStorage.setItem('nc-l',l);document.documentElement.lang=l;document.documentElement.dir=l==='ar'?'rtl':'ltr'},[l])
+  const v=useMemo(()=>({l,ar:l==='ar',t:()=>set(x=>x==='ar'?'en':'ar'),s:k=>copy[l][k]||copy.en[k]||k}),[l])
+  return <LangContext.Provider value={v}>{children}</LangContext.Provider>
 }
 
 const CartContext = createContext(null)
 function CartProvider({children}){
-  const [items,setItems]=useState(()=>{try{return JSON.parse(localStorage.getItem('nc-cart')||'[]')}catch{return[]}})
+  const [items,set]=useState(()=>{try{return JSON.parse(localStorage.getItem('nc-c')||'[]')}catch{return[]}})
   const [open,setOpen]=useState(false)
-  useEffect(()=>localStorage.setItem('nc-cart',JSON.stringify(items)),[items])
-  const add=(product,size='5ML',qty=1) => {
-    const opt=decantSizes.find(x=>x.label===size)||decantSizes[2]
-    const price=Math.round(product.price*opt.multiplier)
-    setItems(prev=>{const hit=prev.find(x=>x.id===product.id&&x.size===size);if(hit)return prev.map(x=>x.id===product.id&&x.size===size?{...x,qty:x.qty+qty}:x);return[...prev,{id:product.id,name:product.name,arName:product.arName,brand:product.brand,family:product.family,set:product.set,size,price,qty}]})
-    setOpen(true)
-  }
-  const update=(id,size,qty)=>setItems(prev=>prev.map(x=>x.id===id&&x.size===size?{...x,qty:Math.max(1,qty)}:x))
-  const remove=(id,size)=>setItems(prev=>prev.filter(x=>!(x.id===id&&x.size===size)))
-  const clear=()=>setItems([]);const subtotal=items.reduce((s,x)=>s+x.price*x.qty,0);const count=items.reduce((s,x)=>s+x.qty,0)
-  const value=useMemo(()=>({items,open,setOpen,add,update,remove,clear,subtotal,count}),[items,open,subtotal,count])
-  return <CartContext.Provider value={value}>{children}</CartContext.Provider>
+  useEffect(()=>localStorage.setItem('nc-c',JSON.stringify(items)),[items])
+  const add=(p,sl='5ML',q=1)=>{const o=sizes.find(x=>x.l===sl)||sizes[2];set(v=>{const h=v.find(x=>x.id===p.id&&x.sl===sl);if(h)return v.map(x=>x.id===p.id&&x.sl===sl?{...x,q:x.q+q}:x);return[...v,{id:p.id,na:p.name,ar:p.ar,br:p.brand,img:p.img,sl,pr:Math.round(p.price*o.m),q}]});setOpen(true)}
+  const up=(id,sl,q)=>set(v=>v.map(x=>x.id===id&&x.sl===sl?{...x,q:Math.max(1,q)}:x))
+  const rm=(id,sl)=>set(v=>v.filter(x=>!(x.id===id&&x.sl===sl)))
+  const cl=()=>set([]);const sub=items.reduce((s,x)=>s+x.pr*x.q,0);const cnt=items.reduce((s,x)=>s+x.q,0)
+  const v=useMemo(()=>({items,open,setOpen,add,up,rm,cl,sub,cnt}),[items,open,sub,cnt])
+  return <CartContext.Provider value={v}>{children}</CartContext.Provider>
 }
 const useCart=()=>useContext(CartContext)
 
-function BottleGlass({product,small=false}){
-  if(product?.img) return <div className={`card-img ${small?'sm':''}`}><img src={product.img} alt={product.name}/></div>
-  if(product?.set) return <div className={`set-box ${small?'set-box-sm':''}`}><div className="set-logo">NC</div><div className="grid grid-cols-4 gap-1 w-[65%]">{products.slice(0,6).map(p=><i key={p.id} style={{background:`linear-gradient(180deg,${p.color2||'#ffe8b0'},${p.color||'#d7b36a'})`}}/>)}</div><span>DISCOVERY</span></div>
-  return <div className={`bottle-glass ${small?'sm':''}`} style={{'--juice':product?.color||'#d7b36a','--juice2':product?.color2||'#fff4c9'}}><div className="bottle-label"><small>NICHE</small><b>{product?.name?.split(' ')[0]||'CENTER'}</b><span>{product?.family?.toUpperCase()||'DECANT'}</span></div></div>
-}
+function WA(){return<svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>}
 
-function InstagramIcon({size=18}){
-  return <svg width={size} height={size} viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="1.8"/><circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.8"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor"/></svg>
-}
+function IG(){return<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor"/></svg>}
 
 function Header(){
-  const {count,setOpen}=useCart();const {lang,t,toggle}=useLangText()
-  return <>
-    <div className="promo-bar">{t('announcement')}</div>
-    <header className="site-header">
-      <div className="shell flex items-center justify-between h-[68px]">
-        <Link to="/" className="logo"><span className="logo-seal">NC</span><span className="logo-text">NICHE<span className="text-gold">CENTER</span></span></Link>
-        <nav className="hidden md:flex items-center gap-7 text-[12px] font-semibold tracking-[.12em] uppercase">
-          <a href="#shop" className="nav-link">{t('shop')}</a>
-          <a href="#collections" className="nav-link">{t('collections')}</a>
-          <a href="#about" className="nav-link">{t('about')}</a>
-          <a href={whatsapp} target="_blank" rel="noreferrer" className="nav-link text-gold">WhatsApp</a>
-        </nav>
-        <div className="flex items-center gap-2">
-          <a href={socials.instagram} target="_blank" rel="noreferrer" className="icon-btn hidden sm:flex"><InstagramIcon size={17}/></a>
-          <a href={whatsapp} target="_blank" rel="noreferrer" className="icon-btn hidden sm:flex"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></a>
-          <button className="lang-btn" onClick={toggle}>{lang==='ar'?'EN':'AR'}</button>
-          <button onClick={()=>setOpen(true)} className="cart-btn"><ShoppingBag size={20}/>{count>0&&<span>{count}</span>}</button>
-        </div>
-      </div>
-    </header>
-  </>
+  const {cnt,setOpen}=useCart();const {l,s,t}=useLang()
+  return<><div className="announce">{s('announce')}</div><header className="site-header"><div className="shell header-inner">
+    <div className="header-left">
+      <Link to="/" className="font-semibold tracking-[.08em] uppercase text-[12px]">{s('shop')}</Link>
+      <a href="#collections" className="font-semibold tracking-[.08em] uppercase text-[12px]">{s('coll')}</a>
+      <a href="#about" className="font-semibold tracking-[.08em] uppercase text-[12px]">{s('about')}</a>
+    </div>
+    <Link to="/" className="logo">NICHE<span className="text-[var(--gold)]">CENTER</span></Link>
+    <div className="header-right justify-end">
+      <button onClick={t} className="font-semibold tracking-[.08em] uppercase text-[11px]">{l==='ar'?'EN':'AR'}</button>
+      <a href={whatsapp} target="_blank" rel="noreferrer"><WA/></a>
+      <a href={socials.instagram} target="_blank" rel="noreferrer" className="hidden sm:block"><IG/></a>
+      <button onClick={()=>setOpen(true)} className="cart-icon"><ShoppingBag size={20}/>{cnt>0&&<span>{cnt}</span>}</button>
+    </div>
+  </div></header></>
 }
+
+const slides = [
+  {label:'hero1',h:'hero1h',p:'hero1p',btn:'cta',href:'#shop',img:null,gradient:'linear-gradient(135deg,#e8e4da,#d6d0c0)'},
+  {label:'hero2',h:'hero2h',p:'hero2p',btn:'dm',href:whatsapp,img:null,gradient:'linear-gradient(135deg,#d6d0c0,#c4bdab)'},
+  {label:'hero3',h:'hero3h',p:'hero3p',btn:'cta',href:'#shop',img:null,gradient:'linear-gradient(135deg,#e0dcd0,#cec7b5)'},
+]
 
 function Hero(){
-  const {t,isAr}=useLangText()
-  return <section className="hero"><div className="shell hero-grid">
-    <div className="hero-copy"><p className="brand-tag">{t('heroKicker')}</p><h1>{t('heroTitle')}</h1><p className="hero-body">{t('heroBody')}</p><div className="flex gap-3 mt-8"><Link to="#shop" className="btn-primary">{t('cta')}</Link><a href={whatsapp} target="_blank" className="btn-outline">{t('dm')}</a></div></div>
-    <div className="hero-visual"><div className="hero-bottle"><div className="hero-badge">+3000</div><BottleGlass product={products[0]}/><BottleGlass product={products[1]} small/><BottleGlass product={products[2]} small/></div></div>
-  </div>
-  <div className="hero-strip"><span>{t('proof1')}</span><span>{t('proof2')}</span><span>{t('proof3')}</span></div></section>
+  const {s,ar}=useLang();const [slide,setSlide]=useState(0)
+  useEffect(()=>{const t=setInterval(()=>setSlide(i=>(i+1)%3),5000);return()=>clearInterval(t)},[])
+  const sl=slides[slide]
+  return<section className="hero-slideshow"><AnimatePresence mode="wait">
+    <motion.div key={slide} initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} transition={{duration:.5}} className="slide">
+      <div className="slide-copy"><p className="slide-label">{s(sl.label)}</p><h1>{s(sl.h)}</h1><p>{s(sl.p)}</p>
+      <a href={sl.href} target={sl.href.startsWith('http')?'_blank':''} className="slide-btn">{s(sl.btn)}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></div>
+      <div className="slide-visual" style={{background:sl.gradient}}><div className="text-center text-[#999] text-[13px] font-semibold tracking-[.2em] uppercase">{ar?'تقسيمات نيش أصلية':'Original Niche Decants'}</div></div>
+    </motion.div>
+  </AnimatePresence>
+  <div className="slide-dots">{slides.map((_,i)=><button key={i} onClick={()=>setSlide(i)} className={`dot ${i===slide?'active':''}`}/>)}</div></section>
 }
 
-function ProductCard({product,i=0}){
-  const {add}=useCart();const {isAr,t}=useLangText()
-  const [sel,setSel]=useState(2)
-  return <motion.div initial={{opacity:0,y:16}} animate={{opacity:1,y:0}} transition={{duration:.4,delay:i*.06}} className="product-card">
-    <Link to={`/product/${product.id}`} className="card-visual"><BottleGlass product={product}/></Link>
-    <div className="p-5"><Link to={`/product/${product.id}`}><p className="text-[11px] tracking-[.12em] font-semibold text-neutral-500 uppercase">{product.brand}</p><h3 className="text-[16px] font-bold mt-1 leading-tight">{isAr?product.arName:product.name}</h3><p className="text-[12px] text-neutral-400 mt-1">{product.family}</p></Link>
-    <div className="flex flex-wrap gap-1.5 mt-3">{decantSizes.slice(0,4).map((s,i)=><button key={s.label} onClick={()=>setSel(i)} className={`size-pill ${sel===i?'active':''}`}>{s.label}</button>)}</div>
-    <button onClick={()=>add(product,decantSizes[sel].label)} className="btn-primary w-full mt-4">{money(Math.round(product.price*decantSizes[sel].multiplier))}</button></div>
+function ProdCard({p,i}){
+  const {add}=useCart();const {ar,s}=useLang();const [sel,setSel]=useState(2)
+  return<motion.div initial={{opacity:0,y:12}} animate={{opacity:1,y:0}} transition={{duration:.35,delay:i*.05}} className="prod-card">
+    <Link to={`/product/${p.id}`} className="prod-img-wrap block">{p.img?<img src={p.img} alt={p.name}/>:<div className="text-[10px] text-[#999] tracking-[.12em] font-semibold uppercase">{p.brand}</div>}</Link>
+    <div className="prod-info"><Link to={`/product/${p.id}`}><p className="prod-brand">{p.brand}</p><h3 className="prod-name">{ar?p.ar:p.name}</h3><p className="prod-family">{p.family}</p></Link>
+    <div className="prod-sizes">{sizes.slice(0,4).map((s,i)=><button key={s.l} onClick={()=>setSel(i)} className={`size-chip ${sel===i?'active':''}`}>{s.l}</button>)}</div>
+    <button onClick={()=>add(p,sizes[sel].l)} className="prod-btn">{AED(Math.round(p.price*sizes[sel].m))}</button></div>
   </motion.div>
 }
 
-function ProductRail({title,cta,items=products}){
-  return <section id="shop" className="py-16 md:py-24"><div className="shell"><div className="flex items-end justify-between mb-10"><div><p className="text-[11px] tracking-[.2em] font-semibold text-neutral-400 uppercase">Niche Center Perfumes AE</p><h2 className="section-title">{title}</h2></div><Link to={whatsapp} className="text-sm font-medium underline underline-offset-4">{cta}</Link></div></div>
-  <div className="shell"><div className="grid md:grid-cols-3 lg:grid-cols-4 gap-5">{items.map((p,i)=><ProductCard key={p.id} product={p} i={i}/>)}</div></div></section>
-}
-
-function CollectionCard({col}){
-  const {isAr}=useLangText();const p=getProduct(col.items[0])
-  return <Link to={`/product/${p.id}`} className="collection-card"><div className="collection-visual"><BottleGlass product={p}/></div><div className="p-6"><p className="text-[11px] tracking-[.12em] text-neutral-400 uppercase">{col.copy}</p><h3 className="text-[20px] font-bold mt-1">{isAr?col.ar:col.title}</h3></div></Link>
-}
-
 function Home(){
-  const {t,isAr}=useLangText()
-  return <main><Hero/>
-    <ProductRail title={t('best')} cta={t('bestCta')} items={products}/>
-    <section id="about" className="py-16 md:py-24 bg-[#f8f8f8]"><div className="shell grid md:grid-cols-2 gap-12 items-center"><div><p className="text-[11px] tracking-[.2em] font-semibold text-neutral-400 uppercase">Niche Center</p><h2 className="text-[36px] md:text-[52px] font-bold leading-[.92] tracking-[-.03em]">{isAr?'لماذا التقسيمات؟':'Why Decants?'}</h2></div><div className="space-y-5 text-[15px] leading-7 text-neutral-600"><p>{isAr?'شراء عطر نيش كامل بدون تجربة مكلف. نيش سنتر يقدم طريقة أذكى لاختبار الثبات والفوحان قبل الشراء.':'Blind-buying a full bottle of niche fragrance is expensive. Niche Center gives you a smarter way to test longevity, sillage and skin chemistry before committing.'}</p><p>{isAr?'أكثر من 100 عطر نيش فاخر، جميعها أصلية 100%، مسحوبة من الزجاجة الأصلية في الإمارات.':'Over 100 luxury niche fragrances, all 100% original, transferred from retail bottles here in the UAE.'}</p><a href={whatsapp} target="_blank" className="btn-primary mt-4 w-fit">{isAr?'تواصل عبر واتساب':'Order via WhatsApp'}</a></div></div></section>
-    <section id="collections" className="py-16 md:py-24"><div className="shell"><h2 className="section-title mb-8">{t('collections')}</h2></div>
-    <div className="shell"><div className="grid md:grid-cols-3 gap-6">{collections.map(col=><CollectionCard key={col.id} col={col}/>)}</div></div></section>
-    <section className="py-16 md:py-24 bg-[#f8f8f8]"><div className="shell grid md:grid-cols-3 gap-8"><div className="service-card"><ShieldCheck size={22}/><h3>{t('original')}</h3><p>{t('originalBody')}</p></div><div className="service-card"><Sparkles size={22}/><h3>{t('sizes')}</h3><p>{t('sizesBody')}</p></div><div className="service-card"><Truck size={22}/><h3>{t('delivery')}</h3><p>{t('deliveryBody')}</p></div></div></section>
+  const {s,ar}=useLang()
+  return<main>
+    <Hero/>
+    <section id="shop" className="py-14 md:py-20"><div className="shell">
+      <div className="section-head"><div><p className="section-sub">Niche Center Perfumes AE</p><h2>{s('best')}</h2></div><a href={whatsapp} target="_blank">{s('view')}</a></div>
+      <div className="product-grid">{products.map((p,i)=><ProdCard key={p.id} p={p} i={i}/>)}</div>
+    </div></section>
+    <section id="collections" className="py-14 md:py-20 bg-[#f8f8f8]"><div className="shell">
+      <div className="section-head"><div><p className="section-sub">Curated Collections</p><h2>{s('coll')}</h2></div></div>
+      <div className="collection-grid">{collections.map(c=>{const p=getP(c.items[0]);return <Link key={c.id} to={`/product/${p.id}`} className="col-card"><div className="col-visual">{p.img?<img src={p.img} className="w-full h-full object-contain p-6"/>:<div className="text-[10px] text-[#999] tracking-[.12em] font-semibold uppercase">{p.brand}</div>}</div><div className="col-card-info"><p>{c.copy}</p><h3>{ar?c.ar:c.title}</h3></div></Link>})}
+    </div></div></section>
+    <section id="about" className="py-14 md:py-20"><div className="shell">
+      <div className="grid md:grid-cols-3 gap-6">{[
+        [<ShieldCheck size={20}/>,s('orig'),s('origb')],
+        [<Sparkles size={20}/>,s('smart'),s('smartb')],
+        [<Truck size={20}/>,s('fast'),s('fastb')]
+      ].map(([icon,title,body],i)=><div key={i} className="service-card">{icon}<h3>{title}</h3><p>{body}</p></div>)}
+    </div></div></section>
+    <section className="img-text-section bg-[#f8f8f8]"><div className="text"><p className="section-sub">Why Niche Center?</p><h2>{ar?'عطور نيش أصلية في الإمارات':'Original Niche Fragrances in the UAE'}</h2><p>{ar?'نيش سنتر يقدم أكثر من 100 عطر نيش أصلي من أشهر دور العطور العالمية. جميع التقسيمات من الزجاجات الأصلية.':'Niche Center offers 100+ original niche fragrances from the world\'s finest perfume houses. All decants from original retail bottles.'}</p><a href={whatsapp} target="_blank" className="slide-btn">{ar?'تواصل عبر واتساب':'Order via WhatsApp'}</a></div><div className="bg-[#e8e4da] min-h-[320px] flex items-center justify-center"><span className="text-[11px] text-[#999] tracking-[.2em] font-semibold uppercase">NICHE CENTER PERFUMES AE</span></div></section>
   </main>
 }
 
 function ProductPage(){
-  const {id}=useParams();const product=getProduct(id);const {add}=useCart();const {t,isAr}=useLangText()
-  const [sel,setSel]=useState(2);const [qty,setQty]=useState(1);const [open,setOpen]=useState('Description')
-  const price=Math.round(product.price*(decantSizes[sel]?.multiplier||1))
-  useEffect(()=>{document.title=`${product.name} | Niche Center Perfumes AE`},[product])
-  return <main className="pt-4 md:pt-8">
-    <section className="shell pb-6"><nav className="breadcrumb"><Link to="/">Home</Link><span>/</span><span className="text-neutral-900">{product.name}</span></nav></section>
-    <section className="shell"><div className="grid lg:grid-cols-[1.1fr_.9fr] gap-8 md:gap-14 items-start">
-      <div className="product-visual"><div className="product-bottle-wrap"><div className="hero-badge">{product.badge||'Premium Decant'}</div><BottleGlass product={product}/></div>
-      <div className="product-thumbs">{products.slice(0,6).map(p=><Link key={p.id} to={`/product/${p.id}`} className={`thumb ${p.id===product.id?'active':''}`}><BottleGlass product={p} small/></Link>)}</div></div>
-      <div className="product-info"><h1>{isAr?product.arName:product.name}</h1><p className="text-[12px] tracking-[.15em] font-semibold text-neutral-500 uppercase mt-2">{product.brand} · {product.family}</p>
-      <p className="mt-6 text-[15px] leading-7 text-neutral-600">{isAr?product.arStory:product.story}</p>
-      <div className="mt-8"><p className="text-[12px] tracking-[.12em] font-semibold uppercase mb-3">{t('size')}</p><div className="grid grid-cols-5 gap-2">{decantSizes.map((s,i)=><button key={s.label} onClick={()=>setSel(i)} className={`size-opt ${sel===i?'active':''}`}>{s.label}<small>{money(Math.round(product.price*s.multiplier))}</small></button>)}</div></div>
-      <div className="mt-8 flex items-center gap-3"><div className="qty"><button onClick={()=>setQty(Math.max(1,qty-1))}><Minus size={14}/></button><span>{qty}</span><button onClick={()=>setQty(qty+1)}><Plus size={14}/></button></div><motion.button whileTap={{scale:.97}} onClick={()=>add(product,decantSizes[sel].label,qty)} className="btn-primary flex-1 h-[52px]">{t('add')} · {money(price*qty)}</motion.button></div>
-      <div className="mt-6 grid grid-cols-3 gap-2">{['100% Original','UAE Delivery','WhatsApp Order'].map(s=><div key={s} className="service-pill"><ShieldCheck size={13}/><span>{s}</span></div>)}</div>
-      <div className="mt-8 border-t border-neutral-200">{[[t('description'),`${product.story}\n\n${product.notes.join(' · ')}`],[t('notes'),product.notes.join(' · ')],[t('authenticity'),isAr?'كل تقسيمة مسحوبة من الزجاجة الأصلية مباشرة في عبوات مناسبة للسفر والتجربة.':'Every decant is transferred from an original retail bottle into travel-friendly atomizers for sampling and daily use.']].map(([n,b])=><Accordion key={n} name={n} open={open} setOpen={setOpen}>{b}</Accordion>)}</div>
-    </div></div></section>
-    <ProductRail title={t('related')} cta={t('bestCta')} items={products.filter(p=>p.id!==product.id)}/>
+  const {id}=useParams();const p=getP(id);const {add}=useCart();const {ar,s}=useLang()
+  const [sel,setSel]=useState(2);const [q,setQ]=useState(1);const [open,setOpen]=useState('Description')
+  const pr=Math.round(p.price*(sizes[sel]?.m||1))
+  useEffect(()=>{document.title=`${p.name} | Niche Center`},[p])
+  return<main className="pt-6 pb-16">
+    <div className="shell"><nav className="breadcrumb"><Link to="/">Home</Link><span>/</span><span>{p.name}</span></nav></div>
+    <div className="shell"><div className="grid lg:grid-cols-[1.1fr_.9fr] gap-8 md:gap-12 items-start">
+      <div className="prod-visual"><div className="prod-main-img"><img src={p.img} alt={p.name}/></div>
+      <div className="prod-thumbs">{products.slice(0,6).map(x=><Link key={x.id} to={`/product/${x.id}`} className={`prod-thumb ${x.id===p.id?'active':''}`}><img src={x.img} className="w-full h-full object-contain p-1.5"/></Link>)}</div></div>
+      <div className="prod-detail"><h1>{ar?p.ar:p.name}</h1><p className="text-[12px] tracking-[.15em] font-semibold text-neutral-500 uppercase mt-2">{p.brand} · {p.family}</p>
+      <p className="mt-5 text-[14px] leading-7 text-neutral-600">{ar?`تقسيمة أصلية من ${p.brand}. نوتات: ${p.family}`:`An original decant from ${p.brand}. Scent family: ${p.family}. Available in 5 sizes.`}</p>
+      <div className="mt-6"><p className="text-[11px] tracking-[.12em] font-semibold uppercase mb-2">{s('size')}</p><div className="grid grid-cols-5 gap-2">{sizes.map((s,i)=><button key={s.l} onClick={()=>setSel(i)} className={`size-opt ${sel===i?'active':''}`}>{s.l}<small>{AED(Math.round(p.price*s.m))}</small></button>)}</div></div>
+      <div className="mt-6 flex items-center gap-3"><div className="qty"><button onClick={()=>setQ(Math.max(1,q-1))}><Minus size={14}/></button><span>{q}</span><button onClick={()=>setQ(q+1)}><Plus size={14}/></button></div><button onClick={()=>add(p,sizes[sel].l,q)} className="slide-btn flex-1 h-[48px] justify-center">{s('add')} · {AED(pr*q)}</button></div>
+      <div className="mt-5 grid grid-cols-3 gap-2">{['100% Original','UAE Delivery','WhatsApp Order'].map(x=><div key={x} className="service-pill"><ShieldCheck size={12}/><span>{x}</span></div>)}</div>
+      <div className="mt-6 border-t border-[var(--border)]">{[
+        [s('add')??'Description',`${p.name} by ${p.brand}. ${p.family} scent profile.`],
+        ['Notes',`${p.family.replace(' ',' · ')} · Warm · Long-lasting`],
+        ['Authenticity','Every decant is transferred from an original retail bottle into travel-friendly atomizers. 100% authentic, no copies.']
+      ].map(([n,b])=><Accordion key={n} n={n} open={open} set={setOpen}>{b}</Accordion>)}</div>
+    </div></div></div>
   </main>
 }
 
-function Accordion({name,open,setOpen,children}){
-  const active=open===name
-  return <div className="border-b border-neutral-200"><button onClick={()=>setOpen(active?'':name)} className="w-full py-5 flex items-center justify-between text-start font-semibold text-[14px]"><span>{name}</span><ChevronDown size={16} className={`transition ${active?'rotate-180':''}`}/></button><AnimatePresence>{active&&<motion.p initial={{height:0,opacity:0}} animate={{height:'auto',opacity:1}} exit={{height:0,opacity:0}} className="overflow-hidden pb-5 text-[14px] leading-7 text-neutral-500 whitespace-pre-line">{children}</motion.p>}</AnimatePresence></div>
+function Accordion({n,open,set,children}){
+  const a=open===n
+  return<div className="border-b border-[var(--border)]"><button onClick={()=>set(a?'':n)} className="w-full py-4 flex items-center justify-between text-start font-semibold text-[13px]"><span>{n}</span><ChevronDown size={14} className={`transition ${a?'rotate-180':''}`}/></button><AnimatePresence>{a&&<motion.p initial={{height:0,opacity:0}} animate={{height:'auto',opacity:1}} exit={{height:0,opacity:0}} className="overflow-hidden pb-4 text-[13px] leading-6 text-neutral-500">{children}</motion.p>}</AnimatePresence></div>
 }
 
 function CartDrawer(){
-  const {open,setOpen,items,update,remove,subtotal}=useCart();const {t,isAr}=useLangText();const navigate=useNavigate()
-  const freeAt=200;const left=Math.max(0,freeAt-subtotal)
-  return <AnimatePresence>{open&&<><motion.div initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} onClick={()=>setOpen(false)} className="fixed inset-0 bg-black/40 z-50"/><motion.aside initial={{x:'100%'}} animate={{x:0}} exit={{x:'100%'}} transition={{type:'spring',damping:28,stiffness:260}} className="cart-drawer"><div className="h-16 px-6 flex items-center justify-between border-b border-neutral-200"><h2 className="text-lg font-bold">{t('cart')}</h2><button onClick={()=>setOpen(false)}><X/></button></div>{items.length===0?<div className="flex-1 grid place-items-center text-center px-8"><div><ShoppingBag className="mx-auto mb-4 text-neutral-300"/><p className="text-neutral-500">{t('empty')}</p><Link onClick={()=>setOpen(false)} to="/" className="btn-primary px-10 mt-7">{t('keep')}</Link></div></div>:<><div className="px-6 pt-4 pb-2"><div className={`shipping-card ${left===0?'done':''}`}><span>{left===0?t('free'):`${t('addFree')} ${money(left)} ${t('forFree')}`}</span><div><span style={{width:`${Math.min(100,subtotal/freeAt*100)}%`}}/></div></div></div><div className="flex-1 overflow-auto px-6 space-y-4">{items.map(item=><div key={item.id+item.size} className="grid grid-cols-[72px_1fr] gap-4 border-b border-neutral-100 pb-4"><div className="cart-thumb"><BottleGlass product={item} small/></div><div><div className="flex justify-between"><div><h3 className="text-sm font-semibold">{isAr?item.arName:item.name}</h3><p className="text-xs text-neutral-500">{item.brand} · {item.size}</p></div><button onClick={()=>remove(item.id,item.size)}><X size={15}/></button></div><div className="flex items-center justify-between mt-3"><div className="qty sm"><button onClick={()=>update(item.id,item.size,item.qty-1)}><Minus size={12}/></button><span>{item.qty}</span><button onClick={()=>update(item.id,item.size,item.qty+1)}><Plus size={12}/></button></div><span className="font-semibold">{money(item.price*item.qty)}</span></div></div></div>)}</div><div className="p-6 border-t border-neutral-200"><div className="flex justify-between mb-4"><span className="text-sm">{t('subtotal')}</span><span className="font-bold">{money(subtotal)}</span></div><button onClick={()=>{setOpen(false);navigate('/checkout')}} className="btn-primary w-full h-[50px]">{t('checkout')}</button><a href={whatsapp} target="_blank" rel="noreferrer" className="btn-outline-dark w-full h-[46px] mt-3 flex items-center justify-center gap-2 text-sm font-semibold">{isAr?'اطلب عبر واتساب':'Order via WhatsApp'} · +971 55 149 5060</a></div></>}</motion.aside></>}</AnimatePresence>
+  const {open,setOpen,items,up,rm,sub}=useCart();const {ar,s}=useLang();const nav=useNavigate()
+  return<AnimatePresence>{open&&<><motion.div initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} onClick={()=>setOpen(false)} className="fixed inset-0 bg-black/30 z-50"/><motion.aside initial={{x:'100%'}} animate={{x:0}} exit={{x:'100%'}} transition={{type:'spring',damping:28,stiffness:260}} className="cart-drawer"><div className="h-14 px-5 flex items-center justify-between border-b border-[var(--border)]"><h2>{s('cart')}</h2><button onClick={()=>setOpen(false)}><X size={18}/></button></div>{items.length===0?<div className="flex-1 grid place-items-center"><div className="text-center"><ShoppingBag className="mx-auto mb-3 text-neutral-300"/><p className="text-sm text-neutral-500">{s('empty')}</p><Link onClick={()=>setOpen(false)} to="/" className="prod-btn px-8 mt-5 inline-flex w-auto">{s('keep')}</Link></div></div>:<><div className="p-5"><div className="ship-card"><span>{s('free')}</span><div className="ship-bar"><span style={{width:'30%'}}/></div></div></div><div className="flex-1 overflow-auto px-5">{items.map(x=><div key={x.id+x.sl} className="cart-item"><div className="cart-item-thumb"><img src={x.img}/></div><div><p className="text-sm font-semibold">{ar?x.ar:x.na}</p><p className="text-xs text-neutral-500">{x.sl}</p></div><div className="text-right"><span className="font-semibold text-sm">{AED(x.pr*x.q)}</span><div className="cart-qty mt-2"><button onClick={()=>up(x.id,x.sl,x.q-1)}>-</button><span>{x.q}</span><button onClick={()=>up(x.id,x.sl,x.q+1)}>+</button></div></div></div>)}</div><div className="p-5 border-t border-[var(--border)]"><div className="flex justify-between mb-3"><span className="text-sm">{s('subtotal')}</span><span className="font-bold">{AED(sub)}</span></div><button onClick={()=>{setOpen(false);nav('/checkout')}} className="slide-btn w-full justify-center">{s('chkout')}</button></div></>}</motion.aside></>}</AnimatePresence>
 }
 
 function Checkout(){
-  const {items,subtotal,clear}=useCart();const {t,isAr}=useLangText();const [done,setDone]=useState(false);const shipping=subtotal===0||subtotal>=200?0:15
-  if(done)return<main className="min-h-[70vh] py-20 grid place-items-center text-center shell"><div><div className="w-16 h-16 rounded-full bg-[#173d2f] text-white grid place-items-center mx-auto mb-6"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 6L9 17l-5-5"/></svg></div><h1 className="text-3xl font-bold">{t('confirmed')}</h1><p className="mt-4 text-neutral-500 max-w-md">{t('confirmedBody')}</p><a href={whatsapp} target="_blank" className="btn-primary px-12 mt-8">{isAr?'تواصل عبر واتساب':'Contact via WhatsApp'}</a></div></main>
-  return<main className="py-8 md:py-16 shell"><h1 className="text-2xl font-bold mb-8">{t('checkout')}</h1><div className="grid lg:grid-cols-[1fr_380px] gap-8"><form onSubmit={e=>{e.preventDefault();setDone(true)}} className="space-y-8"><section><h2 className="text-[13px] tracking-[.15em] font-semibold uppercase mb-4">{t('contact')}</h2><div className="grid md:grid-cols-2 gap-4">{['First name','Last name','Email','Phone'].map(l=><label key={l} className="input-label"><span>{l}</span><input required type={l==='Email'?'email':'text'}/></label>)}</div></section><section><h2 className="text-[13px] tracking-[.15em] font-semibold uppercase mb-4">{t('deliveryForm')}</h2><div className="grid gap-4"><label className="input-label"><span>Address</span><input required/></label><div className="grid md:grid-cols-3 gap-4">{['City','Emirate','Country'].map(l=><label key={l} className="input-label"><span>{l}</span><input required defaultValue={l==='Country'?'United Arab Emirates':''}/></label>)}</div></div></section><section><h2 className="text-[13px] tracking-[.15em] font-semibold uppercase mb-4">{t('payment')}</h2><div className="grid gap-2">{['Credit Card','Tabby / Tamara','Cash on Delivery','WhatsApp Order'].map(p=><label key={p} className="pay-row"><input type="radio" name="pay" defaultChecked={p==='Credit Card'}/><span>{p}</span></label>)}</div></section><button className="btn-primary h-[52px] w-full md:w-[300px]">{t('place')} · {money(subtotal+shipping)}</button></form>
-  <aside className="summary"><h2 className="text-[13px] tracking-[.15em] font-semibold uppercase mb-4">{t('orderSummary')}</h2>{items.length===0?<p className="text-sm text-neutral-500">{t('empty')}</p>:items.map(item=><div key={item.id+item.size} className="flex items-center gap-3 border-b border-neutral-100 pb-4 mb-4"><div className="cart-thumb small"><BottleGlass product={item} small/></div><div className="flex-1"><p className="text-sm font-semibold">{isAr?item.arName:item.name}</p><p className="text-xs text-neutral-500">Qty {item.qty} · {item.size}</p></div><span className="font-semibold">{money(item.price*item.qty)}</span></div>)}<div className="space-y-2 text-sm pt-4 border-t border-neutral-200"><div className="flex justify-between"><span>{t('subtotal')}</span><span>{money(subtotal)}</span></div><div className="flex justify-between text-neutral-500"><span>Shipping</span><span>{shipping===0?'Complimentary':money(shipping)}</span></div><div className="flex justify-between font-bold text-base pt-2"><span>Total</span><span>{money(subtotal+shipping)}</span></div></div><div className="mt-4 pt-4 border-t border-neutral-200"><a href={whatsapp} target="_blank" rel="noreferrer" className="flex items-center justify-center gap-2 text-sm font-semibold text-[#173d2f]"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>{isAr?'اطلب عبر واتساب':'Order via WhatsApp'} +971 55 149 5060</a></div></aside></div></main>
+  const {items,sub,cl}=useCart();const {ar,s}=useLang();const [done,setDone]=useState(false);const ship=sub===0||sub>=200?0:15
+  if(done)return<main className="min-h-[60vh] grid place-items-center shell py-20 text-center"><div><div className="w-14 h-14 rounded-full bg-[var(--emerald)] text-white grid place-items-center mx-auto mb-5"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 6L9 17l-5-5"/></svg></div><h1 className="text-2xl font-bold">{s('confirmed')}</h1><p className="mt-3 text-sm text-neutral-500 max-w-sm">{s('confirmedBody')}</p><a href={whatsapp} target="_blank" className="slide-btn px-10 mt-6">{ar?'واتساب':'WhatsApp'}</a></div></main>
+  return<main className="py-10 shell"><h1 className="text-xl font-bold mb-6">{s('chkout')}</h1><div className="grid lg:grid-cols-[1fr_360px] gap-8"><form onSubmit={e=>{e.preventDefault();setDone(true)}} className="space-y-6"><section><h2 className="text-[12px] tracking-[.12em] font-semibold uppercase mb-3">{s('contact')}</h2><div className="grid md:grid-cols-2 gap-3">{['First name','Last name','Email','Phone'].map(l=><label key={l} className="input-wrap"><span>{l}</span><input required type={l==='Email'?'email':'text'}/></label>)}</div></section><section><h2 className="text-[12px] tracking-[.12em] font-semibold uppercase mb-3">{s('del')}</h2><div className="grid gap-3"><label className="input-wrap"><span>Address</span><input required/></label><div className="grid md:grid-cols-3 gap-3">{['City','Emirate','Country'].map(l=><label key={l} className="input-wrap"><span>{l}</span><input required defaultValue={l==='Country'?'UAE':''}/></label>)}</div></div></section><section><h2 className="text-[12px] tracking-[.12em] font-semibold uppercase mb-3">{s('pay')}</h2><div className="grid gap-2">{['Credit Card','Tabby / Tamara','Cash on Delivery','WhatsApp Order'].map(p=><label key={p} className="pay-opt"><input type="radio" name="pay" defaultChecked={p==='Credit Card'}/><span>{p}</span></label>)}</div></section><button className="slide-btn px-10">{s('place')} · {AED(sub+ship)}</button></form>
+  <aside className="summary-box"><h2 className="text-[12px] tracking-[.12em] font-semibold uppercase mb-3">{s('summary')}</h2>{items.map(x=><div key={x.id+x.sl} className="flex items-center gap-3 border-b border-[#f0f0f0] pb-3 mb-3"><div className="cart-item-thumb"><img src={x.img}/></div><div className="flex-1"><p className="text-sm font-semibold">{ar?x.ar:x.na}</p><p className="text-xs text-neutral-500">Qty {x.q} · {x.sl}</p></div><span className="font-semibold text-sm">{AED(x.pr*x.q)}</span></div>)}<div className="text-sm space-y-1 pt-3 border-t border-[var(--border)]"><div className="flex justify-between"><span>{s('subtotal')}</span><span>{AED(sub)}</span></div><div className="flex justify-between text-neutral-500"><span>Shipping</span><span>{ship===0?'Free':AED(ship)}</span></div><div className="flex justify-between font-bold pt-1"><span>Total</span><span>{AED(sub+ship)}</span></div></div></aside></div></main>
 }
 
 function Footer(){
-  const {isAr}=useLangText()
-  return <footer className="site-footer"><div className="shell footer-grid"><div><Link to="/" className="logo mb-3"><span className="logo-seal">NC</span><span className="logo-text">NICHE<span className="text-gold">CENTER</span></span></Link><p className="footer-desc">{isAr?'تقسيمات عطور نيش أصلية في الإمارات. جرب العطر قبل شراء الزجاجة الكاملة.':'Original luxury niche decants in the UAE. Try before you buy the full bottle.'}</p><div className="flex gap-2 mt-5"><a href={socials.instagram} target="_blank" className="icon-btn"><InstagramIcon size={17}/></a><a href={whatsapp} target="_blank" className="icon-btn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></a></div></div>
-  {[[isAr?'عطور':'Brands',['Xerjoff','Amouage','Byredo','Frederic Malle','Atelier Materi']],[isAr?'تسوق':'Shop',['Best Sellers','Discovery Sets','Decants','Retail Bottles']],[isAr?'الدعم':'Support',['WhatsApp +971 55 149 5060','Instagram DM','Fast Delivery','Authenticity']]].map(([t,links])=><div key={t} className="footer-col"><h3>{t}</h3>{links.map(l=><Link key={l} to={l.includes('+971')?whatsapp:'/'}>{l}</Link>)}</div>)}</div>
-  <div className="shell footer-btm"><span>© 2026 Niche Center Perfumes AE</span><span><a href={socials.instagram} className="hover:text-black">Instagram</a> · <a href={whatsapp} className="hover:text-black">WhatsApp</a> · UAE · {isAr?'العربية':'English'}</span></div></footer>
-}
-
-function FloatingWA(){
-  return <a href={whatsapp} target="_blank" rel="noreferrer" className="floating-wa" aria-label="WhatsApp"><svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+  const {ar}=useLang()
+  return<footer className="site-footer"><div className="shell foot-grid"><div><div className="foot-brand">NICHE<span style={{color:'var(--gold)'}}>CENTER</span></div><p className="foot-desc">{ar?'تقسيمات عطور نيش أصلية في الإمارات.':'Original luxury niche decants in the UAE.'}</p><div className="flex gap-2 mt-4"><a href={socials.instagram} target="_blank" className="w-9 h-9 rounded-full border border-[var(--border)] grid place-items-center hover:bg-[var(--emerald)] hover:border-[var(--emerald)] hover:text-white transition"><IG/></a><a href={whatsapp} target="_blank" className="w-9 h-9 rounded-full border border-[var(--border)] grid place-items-center hover:bg-[var(--emerald)] hover:border-[var(--emerald)] hover:text-white transition"><WA/></a></div></div>
+  {[[ar?'عطور':'Brands',['BDK Parfums','Maison Crivelli','Amouage','Xerjoff','Byredo']],[ar?'تسوق':'Shop',['Best Sellers','Decants','Discovery Sets']],[ar?'الدعم':'Support',['WhatsApp','Instagram DM','Delivery','Contact']]].map(([t,links])=><div key={t} className="foot-col"><h3>{t}</h3>{links.map(l=><Link key={l} to={l==='WhatsApp'?whatsapp:'/'}>{l}</Link>)}</div>)}</div>
+  <div className="shell foot-btm"><span>© 2026 Niche Center Perfumes AE</span><span><a href={socials.instagram}>Instagram</a> · <a href={whatsapp}>WhatsApp</a> · UAE</span></div></footer>
 }
 
 function Shell(){
-  const location=useLocation()
-  useEffect(()=>window.scrollTo(0,0),[location.pathname])
-  return <><Header/><CartDrawer/><AnimatePresence mode="wait"><motion.div key={location.pathname} initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} transition={{duration:.25}}><Routes location={location}><Route path="/" element={<Home/>}/><Route path="/product/:id" element={<ProductPage/>}/><Route path="/checkout" element={<Checkout/>}/></Routes></motion.div></AnimatePresence><Footer/><FloatingWA/></>
+  const loc=useLocation()
+  useEffect(()=>window.scrollTo(0,0),[loc.pathname])
+  return<><Header/><CartDrawer/><AnimatePresence mode="wait"><motion.div key={loc.pathname} initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} transition={{duration:.25}}><Routes location={loc}><Route path="/" element={<Home/>}/><Route path="/product/:id" element={<ProductPage/>}/><Route path="/checkout" element={<Checkout/>}/></Routes></motion.div></AnimatePresence><Footer/><a href={whatsapp} target="_blank" className="floating-wa" aria-label="WhatsApp"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a></>
 }
 
 export default function App(){return <LangProvider><CartProvider><Shell/></CartProvider></LangProvider>}
