@@ -1,7 +1,17 @@
 {
   "rewrites": [
-    { "source": "/product/abyss-bleu", "destination": "/product/abyss-bleu/index.html" },
-    { "source": "/product/abyss-bleu/", "destination": "/product/abyss-bleu/index.html" },
+    { "source": "/product/bdk-paris-gris-decant", "destination": "/product/bdk-paris-gris-decant/index.html" },
+    { "source": "/product/bdk-paris-gris-decant/", "destination": "/product/bdk-paris-gris-decant/index.html" },
+    { "source": "/product/bdk-paris-emerald-decant", "destination": "/product/bdk-paris-emerald-decant/index.html" },
+    { "source": "/product/bdk-paris-emerald-decant/", "destination": "/product/bdk-paris-emerald-decant/index.html" },
+    { "source": "/product/bdk-paris-rouge-decant", "destination": "/product/bdk-paris-rouge-decant/index.html" },
+    { "source": "/product/bdk-paris-rouge-decant/", "destination": "/product/bdk-paris-rouge-decant/index.html" },
+    { "source": "/product/maison-crivelli-cuir-infrarouge", "destination": "/product/maison-crivelli-cuir-infrarouge/index.html" },
+    { "source": "/product/maison-crivelli-cuir-infrarouge/", "destination": "/product/maison-crivelli-cuir-infrarouge/index.html" },
+    { "source": "/product/amouage-reasons-decant", "destination": "/product/amouage-reasons-decant/index.html" },
+    { "source": "/product/amouage-reasons-decant/", "destination": "/product/amouage-reasons-decant/index.html" },
+    { "source": "/product/amouage-reflection-decant", "destination": "/product/amouage-reflection-decant/index.html" },
+    { "source": "/product/amouage-reflection-decant/", "destination": "/product/amouage-reflection-decant/index.html" },
     { "source": "/checkout", "destination": "/checkout/index.html" },
     { "source": "/checkout/", "destination": "/checkout/index.html" }
   ]
