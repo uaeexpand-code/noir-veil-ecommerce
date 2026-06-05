@@ -115,7 +115,7 @@ function injectProductOptionRuntime(html, product){
     options: product.options,
   })
   const runtime = `<style id="nc-product-options-css">
-.wd-swatches-product[data-nc-options="1"] .wd-swatch{cursor:pointer;text-decoration:none!important;transition:border-color .18s ease,background .18s ease,color .18s ease}.wd-swatches-product[data-nc-options="1"] .wd-swatch.wd-active{border-color:#111!important;box-shadow:inset 0 0 0 1px #111!important}.nc-added-msg{margin-top:10px;color:#0f7a35;font-size:13px;font-weight:600}.single_add_to_cart_button[data-selected-size]::after{content:' — ' attr(data-selected-size);font-weight:600;opacity:.9}
+.wd-swatches-product[data-nc-options="1"] .wd-swatch{cursor:pointer;text-decoration:none!important;transition:border-color .18s ease,background .18s ease,color .18s ease}.wd-swatches-product[data-nc-options="1"] .wd-swatch.wd-active{border-color:#111!important;box-shadow:inset 0 0 0 1px #111!important}.nc-added-msg{margin-top:10px;color:#0f7a35;font-size:13px;font-weight:600}.single_add_to_cart_button{display:flex!important;align-items:center!important;justify-content:center!important;min-height:48px!important;padding:0 28px!important;background:#211f1c!important;border:1px solid #211f1c!important;color:#fff!important;text-align:center!important;font-size:13px!important;font-weight:700!important;letter-spacing:.04em!important;text-transform:uppercase!important;line-height:1!important;box-shadow:none!important;opacity:1!important}.single_add_to_cart_button:hover{background:#000!important;border-color:#000!important;color:#fff!important}.single_add_to_cart_button.loading,.single_add_to_cart_button.added{opacity:1!important;pointer-events:auto!important}.single_add_to_cart_button:before,.single_add_to_cart_button:after,.single_add_to_cart_button.loading:before,.single_add_to_cart_button.loading:after,.single_add_to_cart_button.added:before,.single_add_to_cart_button.added:after{content:none!important;display:none!important;animation:none!important;transform:none!important}.single_add_to_cart_button .wd-action-icon{display:none!important}
 </style><script id="nc-product-options-js">
 (function(){
   var product = ${payload};
@@ -124,11 +124,18 @@ function injectProductOptionRuntime(html, product){
   function priceTargets(){ return document.querySelectorAll('.wd-single-price .amount bdi, .summary .price .amount bdi, p.price .amount bdi'); }
   function setPrice(option){
     priceTargets().forEach(function(el){ el.innerHTML = priceInner(option.price); });
-    document.querySelectorAll('.single_add_to_cart_button, #wd-add-to-cart').forEach(function(btn){
+    document.querySelectorAll('.single_add_to_cart_button').forEach(function(btn){
       btn.dataset.selectedSize = option.label;
       btn.dataset.selectedPrice = String(option.price);
+      btn.classList.remove('loading','added');
+      btn.textContent = 'Add to cart';
+    });
+    document.querySelectorAll('#wd-add-to-cart').forEach(function(btn){
+      btn.classList.remove('loading','added');
+      btn.textContent = 'Buy now';
     });
   }
+
   function setupSwatches(){
     var wrap = document.querySelector('.wd-swatches-product');
     if(!wrap) return;
@@ -177,7 +184,16 @@ function injectProductOptionRuntime(html, product){
           localStorage.setItem('niche-perfumes-last-item', JSON.stringify(item));
         } catch(e) {}
         var btn = form.querySelector('.single_add_to_cart_button') || form.querySelector('button[type="submit"]');
-        if(btn){ btn.textContent = 'Added ✓'; setTimeout(function(){ btn.textContent = 'Add to cart'; btn.dataset.selectedSize = option.label; }, 1200); }
+        if(btn){
+          btn.classList.remove('loading','added');
+          btn.textContent = 'Added ✓';
+          setTimeout(function(){
+            btn.classList.remove('loading','added');
+            btn.textContent = 'Add to cart';
+            btn.dataset.selectedSize = option.label;
+          }, 1200);
+        }
+
         var msg = form.querySelector('.nc-added-msg');
         if(!msg){ msg = document.createElement('div'); msg.className = 'nc-added-msg'; form.appendChild(msg); }
         msg.textContent = product.name + ' / ' + option.label + ' — ' + fmt(option.price) + ' added.';
