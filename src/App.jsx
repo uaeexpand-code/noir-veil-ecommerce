@@ -40,7 +40,7 @@ function BottleArt({ product, small=false }){
 
 function ProductCard({ product, i=0 }){
   const { add } = useCart()
-  return <motion.article initial={{opacity:1,y:0}} animate={{opacity:1,y:0}} transition={{duration:.4,delay:i*.04}} className="product-card min-w-[270px] md:min-w-0">
+  return <motion.article initial={{opacity:1,y:0}} animate={{opacity:1,y:0}} transition={{duration:.4,delay:i*.04}} className="product-card min-w-0">
     <Link to={`/product/${product.id}`} className="card-img h-[300px] md:h-[360px] block"><span className="label">{product.badge}</span><BottleArt product={product}/></Link>
     <Link to={`/product/${product.id}`} className="block pt-5"><h3 className="text-[17px] md:text-[18px] font-extrabold tracking-[.04em] leading-none">{product.name}</h3><p className="mt-2 text-[15px] leading-none">{product.sub}</p></Link>
     <motion.button whileTap={{scale:.97}} onClick={()=>add(product)} className="outline-btn w-full mt-5">ADD <span>·</span> {fmt(product.price)} {product.old && <span className="text-neutral-400 line-through">{fmt(product.old)}</span>}</motion.button>
@@ -62,10 +62,10 @@ function Header(){
 
 function Hero(){
   return <section className="section-shell pt-0">
-    <Link to={`/product/${products[4].id}`} className="relative overflow-hidden h-[64vh] min-h-[480px] bg-black text-white flex items-end">
+    <Link to={`/product/${products[4].id}`} className="relative overflow-hidden h-[540px] md:h-[64vh] min-h-[540px] md:min-h-[480px] bg-black text-white flex items-end">
       <motion.div initial={{scale:1.04, opacity:.7}} animate={{scale:1,opacity:1}} transition={{duration:.8}} className="absolute inset-0 bg-[radial-gradient(circle_at_68%_28%,#0b90ba_0,#041e28_24%,#000_55%)]" />
-      <div className="absolute inset-y-0 right-0 w-[72%] opacity-95 flex items-center justify-center"><div className="scale-[1.6] md:scale-[2.35] flex gap-12"><BottleArt product={products[4]}/><BottleArt product={products[5]}/></div></div>
-      <motion.div initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{duration:.55,delay:.15}} className="relative z-10 p-8 md:p-12 max-w-[520px]"><p className="mono text-[12px] mb-4">NEW</p><h1 className="text-[34px] md:text-[52px] leading-[.95] font-extrabold tracking-[.03em]">A TROPICAL ESCAPE</h1><p className="mt-4 text-[17px] md:text-[18px]">Introducing Island Swim & Paradise Nectar</p><span className="inline-flex outline-btn border-white text-white px-12 mt-8 hover:bg-white hover:text-black">SHOP NOW</span></motion.div>
+      <div className="absolute inset-y-0 -right-20 md:right-0 w-[110%] md:w-[72%] opacity-55 md:opacity-95 flex items-center justify-center"><div className="scale-[1.55] md:scale-[2.35] flex gap-8 md:gap-12"><BottleArt product={products[4]}/><BottleArt product={products[5]}/></div></div>
+      <motion.div initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{duration:.55,delay:.15}} className="relative z-10 p-8 md:p-12 max-w-[520px]"><p className="mono text-[12px] mb-4">NEW</p><h1 className="text-[38px] md:text-[52px] leading-[.95] font-extrabold tracking-[.03em]">A TROPICAL ESCAPE</h1><p className="mt-4 text-[16px] md:text-[18px] max-w-[280px] md:max-w-none">Introducing Island Swim & Paradise Nectar</p><span className="inline-flex outline-btn border-white text-white px-12 mt-8 hover:bg-white hover:text-black">SHOP NOW</span></motion.div>
     </Link>
   </section>
 }
@@ -117,7 +117,7 @@ function ProductPage(){
 }
 function Accordion({name,open,setOpen,children}){ const active=open===name; return <div className="border-b border-neutral-300"><button onClick={()=>setOpen(active?'':name)} className="w-full py-5 flex justify-between text-left"><span>{name}</span>{active?<Minus/>:<Plus/>}</button><AnimatePresence>{active && <motion.p initial={{height:0,opacity:0}} animate={{height:'auto',opacity:1}} exit={{height:0,opacity:0}} className="overflow-hidden pb-5 text-[15px] leading-7">{children}</motion.p>}</AnimatePresence></div> }
 function ScentNotes({product}){ return <section className="section-shell py-24 md:py-32 relative overflow-hidden"><h2 className="fade-title text-[24px] mb-12">SCENT NOTES</h2><div className="grid md:grid-cols-3 gap-10 max-w-[850px]">{['TOP','HEART','BASE'].map((t,i)=><div key={t}><h4 className="mono text-[11px] text-neutral-300 mb-5">{t}</h4><div className="text-[20px] md:text-[24px] leading-10 text-neutral-200">{product.notes.slice(i*2,i*2+2).map(n=><p key={n}>{n}</p>)}</div></div>)}</div><div className="absolute right-[12%] top-[22%] opacity-[.06] scale-[4]"><BottleArt product={product}/></div></section> }
-function Reviews(){ const reviews=['I get so many compliments on this perfume. I layer it with the oil ❤️','Smells so good. A clean scent to layer with other perfumes.','This is a great fragrance. I will buy this scent again.','It became my favorite perfume.']; return <section className="bg-[#f3f3f3] py-20 md:py-28"><div className="max-w-[820px] mx-auto px-5"><div className="flex items-center justify-between"><div><p className="text-[34px] font-bold flex items-center gap-3"><Star fill="black"/>4.8</p><p className="mt-7">Reviews Summary ✨</p><p className="mt-4 leading-7">Customers say these perfumes are soft, warm and comforting with a clean modern finish. Many describe the collection as easy to layer and compliment-worthy.</p></div><button className="outline-btn px-8 hidden md:flex">WRITE A REVIEW</button></div><div className="mt-10 border-t border-neutral-300">{reviews.map((r,i)=><div key={r} className="py-8 border-b border-neutral-300"><div className="flex justify-between"><span>★★★★★</span><span className="text-sm text-neutral-500">{i+3} days ago</span></div><p className="mt-5">{r}</p><p className="mt-5 font-medium">{['Angela','Stephanie A.','Jamie','Hilary'][i]}</p><p className="text-sm text-neutral-500">Verified Buyer</p></div>)}</div><button className="outline-btn px-10 mx-auto mt-10">SHOW MORE</button></div></section> }
+function Reviews(){ const reviews=['I get so many compliments on this perfume. I layer it with the oil ❤️','Smells so good. A clean scent to layer with other perfumes.','This is a great fragrance. I will buy this scent again.','It became my favorite perfume.']; return <section className="bg-[#f3f3f3] py-20 md:py-28"><div className="max-w-[820px] mx-auto px-5"><div className="flex items-center justify-between"><div><p className="text-[34px] font-bold flex items-center gap-3"><Star fill="black"/>4.8</p><p className="mt-7">Reviews Summary ✨</p><p className="mt-4 leading-7">Customers say these perfumes are soft, warm and comforting with a clean modern finish. Many describe the collection as easy to layer and compliment-worthy.</p></div><button className="review-write-btn outline-btn px-8">WRITE A REVIEW</button></div><div className="mt-10 border-t border-neutral-300">{reviews.map((r,i)=><div key={r} className="py-8 border-b border-neutral-300"><div className="flex justify-between"><span>★★★★★</span><span className="text-sm text-neutral-500">{i+3} days ago</span></div><p className="mt-5">{r}</p><p className="mt-5 font-medium">{['Angela','Stephanie A.','Jamie','Hilary'][i]}</p><p className="text-sm text-neutral-500">Verified Buyer</p></div>)}</div><button className="outline-btn px-10 mx-auto mt-10">SHOW MORE</button></div></section> }
 
 function CartDrawer(){
   const { open,setOpen,items,update,remove,subtotal } = useCart(); const navigate=useNavigate(); const left=Math.max(0,100-subtotal)
@@ -132,6 +132,47 @@ function Checkout(){
 function CheckoutBlock({title,children}){ return <section><h2 className="text-xl font-extrabold tracking-[.05em] mb-4">{title}</h2>{children}</section> }
 function Input({label,type='text',required=false}){ return <label className="block"><span className="text-sm text-neutral-600">{label}</span><input type={type} required={required} className="mt-2 w-full h-12 px-4 bg-white border border-neutral-300 outline-none focus:border-black"/></label> }
 
-function Footer(){ return <footer className="section-shell py-12 bg-[#f5f5f5] text-neutral-500"><div className="grid md:grid-cols-4 gap-8"><div><h3 className="text-black font-extrabold tracking-[.12em] text-xl">NOIR VEIL</h3><p className="mt-4 max-w-xs">Modern fine fragrance with clean lines, intimate scent stories and polished ecommerce flow.</p></div><div><p className="text-black mb-3">Shop</p><p>Perfume</p><p>Body Mist</p><p>Discovery Sets</p></div><div><p className="text-black mb-3">Support</p><p>Shipping</p><p>Returns</p><p>Membership</p></div><div><p className="text-black mb-3">Newsletter</p><div className="flex mt-3"><input placeholder="Email" className="h-11 px-3 bg-white border flex-1"/><button className="outline-btn px-4 h-11">JOIN</button></div></div></div><div className="mt-12 flex justify-between text-xs"><span>©2026 Noir Veil</span><span>United States · USD $ · English</span></div></footer> }
-function Shell(){ const location=useLocation(); useEffect(()=>window.scrollTo(0,0),[location.pathname]); return <><Header/><CartDrawer/><AnimatePresence mode="wait"><motion.div key={location.pathname} initial={{opacity:0,y:14}} animate={{opacity:1,y:0}} exit={{opacity:0,y:-10}} transition={{duration:.28,ease:'easeOut'}}><Routes location={location}><Route path="/" element={<Home/>}/><Route path="/product/:id" element={<ProductPage/>}/><Route path="/checkout" element={<Checkout/>}/></Routes></motion.div></AnimatePresence><Footer/></> }
+const footerColumns = [
+  { title:'Collections', links:['Missing Person','Father Figure','Vanilla Skin','Heavy Cream'] },
+  { title:'Categories', links:['Perfume','Body Mist','Deodorant','Body Care'] },
+  { title:'Customer Care', links:['Contact','Track Your Order','Shipping & Returns','Terms of Service','Privacy Policy','Sale Terms','Data Subject Request','Do Not Sell or Share'] },
+  { title:'Our Story', links:['About Us','Ingredients','Perfumery Raw Materials','Perfumery Terminology','Olfactive Families','Perfumery Index Blog','Locations'] },
+]
+function DiscoverMore(){
+  const strip = [products[3], products[0], products[1], products[2], products[4]]
+  return <section className="bg-[#fafafa] border-t border-black/0 pt-14 md:pt-20 pb-16 md:pb-24">
+    <div className="section-shell grid md:grid-cols-[32%_1fr] gap-8 md:gap-12 items-center">
+      <div className="pb-2">
+        <h2 className="text-[20px] md:text-[24px] font-extrabold tracking-[.08em] uppercase leading-tight">THERE'S MORE TO DISCOVER</h2>
+        <p className="mt-5 text-[14px] md:text-[15px] leading-6 max-w-[360px]">The Discovery Set is an eight-piece sample collection</p>
+        <div className="mt-5 flex items-center gap-7">
+          <Link to="/" className="text-[21px] font-extrabold tracking-[.1em]">NOIR VEIL</Link>
+          <nav className="hidden sm:flex gap-7 text-[14px]"><Link to="/">Shop</Link><a href="#about">About</a><a href="#membership">Membership</a></nav>
+        </div>
+        <Link to="/product/discovery-set" className="outline-btn w-[130px] h-10 mt-5 text-[11px]">SHOP NOW</Link>
+      </div>
+      <div className="grid gap-5 md:gap-6">
+        {[0,1].map(row=><Link key={row} to="/product/discovery-set" className="relative h-[130px] md:h-[150px] bg-[#f4f4f4] overflow-hidden flex items-center justify-center">
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,#f4f4f4_0,#ffffff_42%,#e9e9e9_100%)]" />
+          <div className="relative flex gap-5 md:gap-8 items-center scale-[.95] md:scale-100 rotate-[-10deg]">
+            {strip.map((p,i)=><div key={`${row}-${p.id}-${i}`} className="scale-[.55] md:scale-[.68] -mx-8 md:-mx-6"><BottleArt product={p}/></div>)}
+          </div>
+        </Link>)}
+      </div>
+    </div>
+  </section>
+}
+function FooterColumn({title,links}){ return <div className="footer-column"><h3>{title}</h3>{links.map(link=><Link key={link} to={link==='Missing Person'?'/product/missing-person':'/'}>{link}</Link>)}</div> }
+function Footer(){ return <footer className="phlur-footer">
+  <div className="section-shell footer-grid">
+    {footerColumns.map(col=><FooterColumn key={col.title} {...col}/>) }
+    <div className="footer-column subscribe">
+      <h3>Subscribe</h3>
+      <p>Sign up for 10% off your first order</p>
+
+    </div>
+  </div>
+  <div className="section-shell footer-bottom"><button type="button">United States&nbsp;&nbsp;·&nbsp;&nbsp;USD $&nbsp;&nbsp;·&nbsp;&nbsp;English</button><p>©2026 Noir Veil – All rights reserved.</p></div>
+</footer> }
+function Shell(){ const location=useLocation(); useEffect(()=>window.scrollTo(0,0),[location.pathname]); return <><Header/><CartDrawer/><AnimatePresence mode="wait"><motion.div key={location.pathname} initial={{opacity:0,y:14}} animate={{opacity:1,y:0}} exit={{opacity:0,y:-10}} transition={{duration:.28,ease:'easeOut'}}><Routes location={location}><Route path="/" element={<Home/>}/><Route path="/product/:id" element={<ProductPage/>}/><Route path="/checkout" element={<Checkout/>}/></Routes></motion.div></AnimatePresence><DiscoverMore/><Footer/></> }
 export default function App(){ return <CartProvider><Shell/></CartProvider> }
