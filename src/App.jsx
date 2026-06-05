@@ -121,9 +121,7 @@ function CartProvider({children}){
 const useCart=()=>useContext(CartContext)
 
 function BottleGlass({product,small=false}){
-  if(product?.img) return <div className={`bottle-glass ${small?'sm':''}`} style={{backgroundImage:`url(${product.img})`,backgroundSize:'contain',backgroundPosition:'center',backgroundRepeat:'no-repeat',background:'none',boxShadow:'none',border:'none'}}>
-    {!small && <div className="bottle-label" style={{position:'absolute',bottom:'8%',left:'10%',right:'10%',textAlign:'center',zIndex:2}}><small style={{fontSize:'6px',fontWeight:'700',letterSpacing:'.16em',color:'#d7b36a'}}>{product.brand}</small></div>}
-  </div>
+  if(product?.img) return <div className={`card-img ${small?'sm':''}`}><img src={product.img} alt={product.name}/></div>
   if(product?.set) return <div className={`set-box ${small?'set-box-sm':''}`}><div className="set-logo">NC</div><div className="grid grid-cols-4 gap-1 w-[65%]">{products.slice(0,6).map(p=><i key={p.id} style={{background:`linear-gradient(180deg,${p.color2||'#ffe8b0'},${p.color||'#d7b36a'})`}}/>)}</div><span>DISCOVERY</span></div>
   return <div className={`bottle-glass ${small?'sm':''}`} style={{'--juice':product?.color||'#d7b36a','--juice2':product?.color2||'#fff4c9'}}><div className="bottle-label"><small>NICHE</small><b>{product?.name?.split(' ')[0]||'CENTER'}</b><span>{product?.family?.toUpperCase()||'DECANT'}</span></div></div>
 }
