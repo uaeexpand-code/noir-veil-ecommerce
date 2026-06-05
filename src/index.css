@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+:root{
+  --ink:#030303;
+  --paper:#fafafa;
+  --wash:#f2f2f2;
+  --stone:#dedede;
+  --blue:#087fa4;
+  --cream:#eee7dd;
+  --rose:#e8a594;
+}
+*{box-sizing:border-box}
+html,body,#root{min-height:100%; overflow-x:hidden; background:var(--paper); color:var(--ink)}
+body{margin:0; font-family:"Inter", "Helvetica Neue", Arial, sans-serif; -webkit-font-smoothing:antialiased; letter-spacing:.01em}
+a{text-decoration:none}
+button,a,.tap{transition:all .2s ease}
+button:active,a:active,.tap:active{transform:scale(.97)}
+.mono{font-family:"JetBrains Mono","SFMono-Regular",Consolas,monospace; letter-spacing:.11em; text-transform:uppercase; font-weight:700}
+.section-shell{padding-left:clamp(20px,5.35vw,80px); padding-right:clamp(20px,5.35vw,80px)}
+
+.bottle{position:relative; width:42%; max-width:190px; min-width:92px; aspect-ratio: .64 / 1; margin:auto; border-radius:18% 18% 13% 13% / 20% 20% 10% 10%; background:linear-gradient(110deg,rgba(255,255,255,.95),rgba(255,255,255,.18) 14%,var(--juice) 30%,var(--juice2) 86%); box-shadow: inset 14px 0 24px rgba(255,255,255,.35), inset -18px -12px 35px rgba(0,0,0,.10), 0 30px 38px rgba(0,0,0,.13)}
+.bottle::before{content:""; position:absolute; top:-24%; left:15%; right:15%; height:30%; border-radius:30% 30% 12% 12%; background:linear-gradient(90deg,#f9f9f9,#d9d9d9 55%,#fff); box-shadow:0 8px 18px rgba(0,0,0,.1)}
+.bottle::after{content:attr(data-name); white-space:pre-line; position:absolute; left:16%; right:16%; top:39%; text-align:center; color:#111; font-size:clamp(9px,1.1vw,14px); line-height:1.05; font-weight:800; letter-spacing:.11em; text-transform:uppercase}
+.travel .bottle{width:17%; min-width:42px; display:inline-block; margin:0 2.5%}
+.card-img{background:#f4f4f4; position:relative; display:flex; align-items:center; justify-content:center; min-height:360px; overflow:hidden}
+.card-img::after{content:""; position:absolute; bottom:0; left:0; right:0; height:18%; background:#dedede}
+.product-card .bottle{z-index:1}
+.label{position:absolute; top:16px; left:16px; z-index:4; background:white; padding:7px 9px; font-size:11px; line-height:1; font-family:"JetBrains Mono",Consolas,monospace; font-weight:800; letter-spacing:.09em; text-transform:uppercase}
+.outline-btn{height:45px; border:1px solid #090909; display:flex; align-items:center; justify-content:center; gap:12px; font-family:"JetBrains Mono",Consolas,monospace; font-size:12px; letter-spacing:.12em; text-transform:uppercase; font-weight:800; background:transparent}
+.outline-btn:hover{background:#000;color:#fff}
+.black-btn{height:56px; background:#000; color:#fff; display:flex; align-items:center; justify-content:center; gap:14px; font-family:"JetBrains Mono",Consolas,monospace; font-size:12px; letter-spacing:.13em; text-transform:uppercase; font-weight:800}
+.black-btn:hover{background:#1c1c1c}
+.fade-title{color:#f0f0f0; letter-spacing:.08em; font-weight:800}
+@media(max-width:767px){
+  .card-img{min-height:270px}
+  .section-shell{padding-left:16px;padding-right:16px}
+  .black-btn{height:52px}
+  .outline-btn{height:42px}
+}
