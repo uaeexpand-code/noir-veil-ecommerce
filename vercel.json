@@ -1,5 +1,8 @@
 {
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/product/abyss-bleu", "destination": "/product/abyss-bleu/index.html" },
+    { "source": "/product/abyss-bleu/", "destination": "/product/abyss-bleu/index.html" },
+    { "source": "/checkout", "destination": "/checkout/index.html" },
+    { "source": "/checkout/", "destination": "/checkout/index.html" }
   ]
 }
