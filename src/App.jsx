@@ -43,19 +43,11 @@ const products = [
     color:'#e8e0d0', color2:'#ffffff', notes:['Bergamot','Rosemary','Juniper','Sandalwood','Cedar','Musk'],
     story:'An iconic fresh aromatic from Amouage. Clean, elegant and impossibly refined.',
     arStory:'أيقونة عطرية منعشة من أمياج. نظيف وأنيق ومصقول بشكل لا يصدق.' },
-  { id:'xerjoff-naxos', brand:'Xerjoff', name:'Naxos Decant', arName:'تقسيمة ناكسوس', family:'Honey Tobacco', price:72,
-    color:'#d7b36a', color2:'#fff4c9', notes:['Honey','Tobacco','Lavender','Tonka','Citrus','Vanilla'],
-    story:'A rich Italian niche icon with honeyed tobacco, citrus brightness and a smooth vanilla-tonka trail.',
-    arStory:'أيقونة نيش إيطالية غنية بالعسل والتبغ ولمسة حمضيات وفانيلا ناعمة.' },
-  { id:'discovery-set', brand:'Niche Center', name:'Discovery Set (8x2ML)', arName:'مجموعة التجربة', family:'Choose 8 Decants', price:145, set:true,
-    notes:['8 Decants','Original Bottles','Travel Ready','Gift Box','UAE Delivery','No Copies'],
-    story:'Build your personal niche wardrobe before investing in full bottles. Perfect as a gift or first order.',
-    arStory:'جرّب عدة عطور نيش أصلية قبل شراء الزجاجة الكاملة. مناسب كهدية أو أول طلب.' },
 ]
 
 const collections = [
   { id:'best', title:'Best Sellers', ar:'الأكثر طلباً', copy:'Customer favourites from 3000+ UAE orders.', items:['bdk-gris-charnel','amouage-reasons','crivelli-cuir-infrarouge'] },
-  { id:'fresh', title:'Fresh & Daily', ar:'فريش يومي', copy:'Clean, aromatic profiles for UAE weather.', items:['amouage-reflection','bdk-riviera','xerjoff-naxos'] },
+  { id:'fresh', title:'Fresh & Daily', ar:'فريش يومي', copy:'Clean, aromatic profiles for UAE weather.', items:['amouage-reflection','bdk-riviera'] },
   { id:'luxury', title:'Luxury Icons', ar:'أيقونات فاخرة', copy:'The most prestigious niche houses in decant sizes.', items:['bdk-rouge-ardent','amouage-reasons','crivelli-cuir-infrarouge'] },
 ]
 
