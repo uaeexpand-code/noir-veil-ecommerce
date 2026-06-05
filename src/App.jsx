@@ -19,38 +19,34 @@ const decantSizes = [
 ]
 
 const products = [
+  { id:'bdk-gris-charnel', brand:'BDK Parfums', name:'Gris Charnel Decant', arName:'تقسيمة غري تشارنيل', family:'Warm Spicy', price:68, img:'/images/niche-center/bdk-gris-charnel.webp',
+    color:'#c4965a', color2:'#f5e6c8', notes:['Saffron','Cardamom','Fig','Iris','Sandalwood','Vanilla'],
+    story:'A warm, sophisticated blend from the Parisian niche house BDK Parfums. Spicy saffron meets creamy fig and sandalwood.',
+    arStory:'مزيج راقي ودافئ من بيت العطور الباريسي BDK. زعفران حار يلتقي بالتين والصندل الكريمي.' },
+  { id:'bdk-riviera', brand:'BDK Parfums', name:'Riviera Decant', arName:'تقسيمة ريفييرا', family:'Green Aromatic', price:72, img:'/images/niche-center/bdk-riviera.webp',
+    color:'#23756b', color2:'#d0f0e8', notes:['Bergamot','Fig Leaf','Iris','Musk','Cedar','Green Notes'],
+    story:'A vibrant green aromatic inspired by the French Riviera. Crisp, elegant and effortlessly fresh.',
+    arStory:'أخضر منعش مستوحى من الريفييرا الفرنسية. أنيق ومنعش لأيام الإمارات.' },
+  { id:'bdk-rouge-ardent', brand:'BDK Parfums', name:'Rouge Ardent Decant', arName:'تقسيمة روج أردنت', family:'Spicy Woody', price:74, img:'/images/niche-center/bdk-rouge-ardent.webp',
+    color:'#b83040', color2:'#ffd8d0', notes:['Pink Pepper','Rose','Cinnamon','Patchouli','Incense','Vanilla'],
+    story:'A bold, fiery rose-patchouli from BDK. Spicy, warm and captivating for confident evenings.',
+    arStory:'ورد جريء مع باتشولي. حار ودافئ وجذاب للمساءات الواثقة.' },
+  { id:'crivelli-cuir-infrarouge', brand:'Maison Crivelli', name:'Cuir InfraRouge Extrait', arName:'تقسيمة كوير إنفراروج', family:'Leather Spicy', price:98, img:'/images/niche-center/crivelli-cuir-infrarouge.webp',
+    color:'#d47a30', color2:'#fce8c8', notes:['Saffron','Leather','Cumin','Labdanum','Incense','Amber'],
+    story:'An extrait concentration from Maison Crivelli. Smouldering leather with saffron and amber.',
+    arStory:'إكسترا من ميزون كريفيلي. جلد مشتعل مع زعفران وعنبر.' },
+  { id:'amouage-reasons', brand:'Amouage', name:'Reasons Decant', arName:'تقسيمة ريزونز', family:'Creamy Woody', price:92, img:'/images/niche-center/amouage-reasons.webp',
+    color:'#d4c8a8', color2:'#f5f0e0', notes:['Bergamot','Cardamom','Oud','Sandalwood','Amber','Musk'],
+    story:'A creamy, woody masterpiece from Amouage. Smooth cardamom and rich sandalwood with a touch of oud.',
+    arStory:'تحفة كريمية وخشبية من أمياج. هيل ناعم وخشب صندل غني بلمسة عود.' },
+  { id:'amouage-reflection', brand:'Amouage', name:'Reflection Man Decant', arName:'تقسيمة ريفليكشن مان', family:'Fresh Aromatic', price:86, img:'/images/niche-center/amouage-reflection-man.webp',
+    color:'#e8e0d0', color2:'#ffffff', notes:['Bergamot','Rosemary','Juniper','Sandalwood','Cedar','Musk'],
+    story:'An iconic fresh aromatic from Amouage. Clean, elegant and impossibly refined.',
+    arStory:'أيقونة عطرية منعشة من أمياج. نظيف وأنيق ومصقول بشكل لا يصدق.' },
   { id:'xerjoff-naxos', brand:'Xerjoff', name:'Naxos Decant', arName:'تقسيمة ناكسوس', family:'Honey Tobacco', price:72,
-    notes:['Honey','Tobacco','Lavender','Tonka','Citrus','Vanilla'],
+    color:'#d7b36a', color2:'#fff4c9', notes:['Honey','Tobacco','Lavender','Tonka','Citrus','Vanilla'],
     story:'A rich Italian niche icon with honeyed tobacco, citrus brightness and a smooth vanilla-tonka trail.',
     arStory:'أيقونة نيش إيطالية غنية بالعسل والتبغ ولمسة حمضيات وفانيلا ناعمة.' },
-  { id:'amouage-guidance', brand:'Amouage', name:'Guidance Decant', arName:'تقسيمة غايدنس', family:'Creamy Amber Floral', price:88,
-    notes:['Pear','Hazelnut','Saffron','Rose','Sandalwood','Ambergris'],
-    story:'A statement scent for elegant evenings: creamy, textured, long-lasting and unmistakably premium.',
-    arStory:'عطر حضور للمناسبات: كريمي، فاخر، ثابت، ويترك بصمة واضحة.' },
-  { id:'byredo-gypsy-water', brand:'Byredo', name:'Gypsy Water Decant', arName:'تقسيمة جيبسي ووتر', family:'Fresh Woody', price:58,
-    notes:['Bergamot','Juniper','Incense','Pine Needle','Sandalwood','Vanilla'],
-    story:'Fresh, woody and easy to wear — the kind of niche scent that works every day in UAE weather.',
-    arStory:'فريش وخشبي وسهل الاستخدام اليومي، مناسب لأجواء الإمارات.' },
-  { id:'nishane-hacivat', brand:'Nishane', name:'Hacivat Decant', arName:'تقسيمة هاجيفات', family:'Pineapple Oakmoss', price:76,
-    notes:['Pineapple','Grapefruit','Bergamot','Cedarwood','Patchouli','Oakmoss'],
-    story:'Bright fruit, clean woods and huge projection — a confident signature scent sample.',
-    arStory:'فاكهة مشرقة وخشب نظيف وفوحان قوي لمن يريد عطراً مميزاً.' },
-  { id:'diptyque-philosykos', brand:'Diptyque', name:'Philosykos Decant', arName:'تقسيمة فيلوسيكوس', family:'Green Fig', price:52,
-    notes:['Fig Leaf','Fig','Coconut','Green Notes','Cedar','Wood'],
-    story:'A calm green fig fragrance for daytime, office wear and quiet luxury styling.',
-    arStory:'رائحة تين خضراء وهادئة تناسب النهار والعمل والفخامة البسيطة.' },
-  { id:'frederic-malle-portrait', brand:'Frederic Malle', name:'Portrait Decant', arName:'تقسيمة بورتريه', family:'Rose Patchouli', price:92,
-    notes:['Rose','Blackcurrant','Raspberry','Clove','Patchouli','Incense'],
-    story:'A bold niche rose with depth, spice and power — made for evenings and formal presence.',
-    arStory:'ورد نيش جريء وعميق مع بهارات وفخامة، مثالي للمساء والمناسبات.' },
-  { id:'sospiro-vibrato', brand:'Sospiro', name:'Vibrato Decant', arName:'تقسيمة فيبراتو', family:'Citrus Aromatic', price:64,
-    notes:['Grapefruit','Bergamot','Magnolia','Ginger','Cedar','Musk'],
-    story:'Sparkling, fresh and refined with a polished citrus-musky drydown.',
-    arStory:'فريش لامع وراقي مع حمضيات ومسك نظيف في القاعدة.' },
-  { id:'atelier-materi', brand:'Atelier Materi', name:'Cacao Porcelana Decant', arName:'تقسيمة كاكاو بورسلان', family:'Gourmet Woody', price:78,
-    notes:['Cacao','Sandalwood','Vanilla','Cedar','Musk'],
-    story:'A rare gourmand wood fragrance from the niche house of Atelier Materi. Dark cacao meets creamy sandalwood.',
-    arStory:'عطر نادر من بيت أتيليه ماتيري. كاكاو داكن يلتقي بخشب الصندل الكريمي.' },
   { id:'discovery-set', brand:'Niche Center', name:'Discovery Set (8x2ML)', arName:'مجموعة التجربة', family:'Choose 8 Decants', price:145, set:true,
     notes:['8 Decants','Original Bottles','Travel Ready','Gift Box','UAE Delivery','No Copies'],
     story:'Build your personal niche wardrobe before investing in full bottles. Perfect as a gift or first order.',
@@ -58,9 +54,9 @@ const products = [
 ]
 
 const collections = [
-  { id:'best', title:'Best Sellers', ar:'الأكثر طلباً', copy:'Customer favourites from 3000+ UAE orders.', items:['xerjoff-naxos','amouage-guidance','nishane-hacivat'] },
-  { id:'fresh', title:'Fresh & Daily', ar:'فريش يومي', copy:'Clean, citrus and musky profiles for UAE weather.', items:['byredo-gypsy-water','diptyque-philosykos','sospiro-vibrato'] },
-  { id:'luxury', title:'Luxury Icons', ar:'أيقونات فاخرة', copy:'The most prestigious niche houses in decant sizes.', items:['frederic-malle-portrait','amouage-guidance','atelier-materi'] },
+  { id:'best', title:'Best Sellers', ar:'الأكثر طلباً', copy:'Customer favourites from 3000+ UAE orders.', items:['bdk-gris-charnel','amouage-reasons','crivelli-cuir-infrarouge'] },
+  { id:'fresh', title:'Fresh & Daily', ar:'فريش يومي', copy:'Clean, aromatic profiles for UAE weather.', items:['amouage-reflection','bdk-riviera','xerjoff-naxos'] },
+  { id:'luxury', title:'Luxury Icons', ar:'أيقونات فاخرة', copy:'The most prestigious niche houses in decant sizes.', items:['bdk-rouge-ardent','amouage-reasons','crivelli-cuir-infrarouge'] },
 ]
 
 const copy = {
@@ -133,6 +129,9 @@ function CartProvider({children}){
 const useCart=()=>useContext(CartContext)
 
 function BottleGlass({product,small=false}){
+  if(product?.img) return <div className={`bottle-glass ${small?'sm':''}`} style={{backgroundImage:`url(${product.img})`,backgroundSize:'contain',backgroundPosition:'center',backgroundRepeat:'no-repeat',background:'none',boxShadow:'none',border:'none'}}>
+    {!small && <div className="bottle-label" style={{position:'absolute',bottom:'8%',left:'10%',right:'10%',textAlign:'center',zIndex:2}}><small style={{fontSize:'6px',fontWeight:'700',letterSpacing:'.16em',color:'#d7b36a'}}>{product.brand}</small></div>}
+  </div>
   if(product?.set) return <div className={`set-box ${small?'set-box-sm':''}`}><div className="set-logo">NC</div><div className="grid grid-cols-4 gap-1 w-[65%]">{products.slice(0,6).map(p=><i key={p.id} style={{background:`linear-gradient(180deg,${p.color2||'#ffe8b0'},${p.color||'#d7b36a'})`}}/>)}</div><span>DISCOVERY</span></div>
   return <div className={`bottle-glass ${small?'sm':''}`} style={{'--juice':product?.color||'#d7b36a','--juice2':product?.color2||'#fff4c9'}}><div className="bottle-label"><small>NICHE</small><b>{product?.name?.split(' ')[0]||'CENTER'}</b><span>{product?.family?.toUpperCase()||'DECANT'}</span></div></div>
 }
