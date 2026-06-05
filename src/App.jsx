@@ -113,12 +113,11 @@ function ProductRail({title,linkText,items=products}){
 }
 
 function ProductCard({p,i,ar}){
-  const {add}=useCart();const [sel,setSel]=useState(2)
+  const {add}=useCart();const sel=2
   const price=Math.round(p.price*sizes[sel].m)
   return <motion.article initial={{opacity:0,y:10}} animate={{opacity:1,y:0}} transition={{duration:.28,delay:i*.035}} className="rail-card">
     <Link to={`/product/${p.id}`} className="rail-img"><span className="badge">{p.badge}</span><img src={p.img} alt={p.name}/><i/></Link>
     <div className="rail-info"><Link to={`/product/${p.id}`}><h3>{ar?p.ar:p.name.replace(' Decant','')}</h3><p>{p.family} · {sizes[sel].l}</p></Link>
-    <div className="mini-sizes">{sizes.slice(0,4).map((x,idx)=><button key={x.l} onClick={()=>setSel(idx)} className={sel===idx?'active':''}>{x.l}</button>)}</div>
     <button className="add-line" onClick={()=>add(p,sizes[sel].l)}>{ar?'أضف':'ADD'} <span>·</span> {AED(price)}</button></div>
   </motion.article>
 }
