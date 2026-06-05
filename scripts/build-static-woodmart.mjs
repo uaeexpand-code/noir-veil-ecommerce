@@ -9,13 +9,16 @@ const remote = 'https://woodmart.xtemos.com'
 const perfRemote = `${remote}/perfumes`
 
 const products = [
-  { slug: 'bdk-paris-gris-decant', name: 'BDK Paris Gris Decant', price: '35.00', image: '/images/products/1.webp', desc: 'A refined BDK Paris niche perfume decant available in 2ml, 5ml, and 10ml spray sizes.' },
-  { slug: 'bdk-paris-emerald-decant', name: 'BDK Paris Emerald Decant', price: '35.00', image: '/images/products/2.webp', desc: 'A fresh green BDK Paris niche fragrance decant prepared in travel-ready atomizers.' },
-  { slug: 'bdk-paris-rouge-decant', name: 'BDK Paris Rouge Decant', price: '35.00', image: '/images/products/3.webp', desc: 'A bold red BDK Paris niche fragrance decant with 2ml, 5ml, and 10ml options.' },
-  { slug: 'maison-crivelli-cuir-infrarouge', name: 'Maison Crivelli Cuir InfraRouge', price: '45.00', image: '/images/products/4.webp', desc: 'Maison Crivelli Cuir InfraRouge extrait de parfum decant in premium spray sizes.' },
-  { slug: 'amouage-reasons-decant', name: 'Amouage Reasons Decant', price: '45.00', image: '/images/products/5.webp', desc: 'Amouage Reasons perfume decant, bottled in clean 2ml, 5ml, and 10ml atomizers.' },
-  { slug: 'amouage-reflection-decant', name: 'Amouage Reflection Decant', price: '45.00', image: '/images/products/6.webp', desc: 'Amouage Reflection niche perfume decant with elegant travel spray presentation.' },
+  { slug: 'bdk-paris-gris-decant', name: 'BDK Paris Gris Decant', price: '35.00', image: '/images/products/1.webp', desc: 'A refined BDK Paris niche perfume decant available in 2ml, 5ml, and 10ml spray sizes.', options: [{ label: '2ml Sample', price: 35 }, { label: '5ml', price: 75 }, { label: '10ml', price: 140 }] },
+  { slug: 'bdk-paris-emerald-decant', name: 'BDK Paris Emerald Decant', price: '35.00', image: '/images/products/2.webp', desc: 'A fresh green BDK Paris niche fragrance decant prepared in travel-ready atomizers.', options: [{ label: '2ml Sample', price: 35 }, { label: '5ml', price: 75 }, { label: '10ml', price: 140 }] },
+  { slug: 'bdk-paris-rouge-decant', name: 'BDK Paris Rouge Decant', price: '35.00', image: '/images/products/3.webp', desc: 'A bold red BDK Paris niche fragrance decant with 2ml, 5ml, and 10ml options.', options: [{ label: '2ml Sample', price: 35 }, { label: '5ml', price: 75 }, { label: '10ml', price: 140 }] },
+  { slug: 'maison-crivelli-cuir-infrarouge', name: 'Maison Crivelli Cuir InfraRouge', price: '45.00', image: '/images/products/4.webp', desc: 'Maison Crivelli Cuir InfraRouge extrait de parfum decant in premium spray sizes.', options: [{ label: '2ml Sample', price: 45 }, { label: '5ml', price: 105 }, { label: '10ml', price: 205 }] },
+  { slug: 'amouage-reasons-decant', name: 'Amouage Reasons Decant', price: '45.00', image: '/images/products/5.webp', desc: 'Amouage Reasons perfume decant, bottled in clean 2ml, 5ml, and 10ml atomizers.', options: [{ label: '2ml Sample', price: 45 }, { label: '5ml', price: 100 }, { label: '10ml', price: 190 }] },
+  { slug: 'amouage-reflection-decant', name: 'Amouage Reflection Decant', price: '45.00', image: '/images/products/6.webp', desc: 'Amouage Reflection niche perfume decant with elegant travel spray presentation.', options: [{ label: '2ml Sample', price: 45 }, { label: '5ml', price: 100 }, { label: '10ml', price: 190 }] },
 ]
+
+function formatAed(amount){ return Number(amount).toLocaleString('en-AE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }
+function priceMarkup(amount){ return `<span class="woocommerce-Price-currencySymbol">AED </span>${formatAed(amount)}` }
 
 const sourceProducts = [
   { title: 'Abyss Bleu 100ml', slug: 'abyss-bleu', img: 'abyss-bleu', product: products[0] },
@@ -29,6 +32,12 @@ const sourceProducts = [
   { title: 'Midnight Azure 100ml', slug: 'midnight-azure', img: 'midnight-azure', product: products[2] },
   { title: 'Amethyst Haze 100ml', slug: 'amethyst-haze', img: 'amethyst-haze', product: products[3] },
   { title: 'Amethyst Haze 2ml Sample', slug: 'amethyst-haze', img: 'amethyst-haze', product: products[4] },
+  { title: 'Arctic Dusk 50ml', slug: 'arctic-dusk', img: 'arctic-dusk', product: products[1] },
+  { title: 'Celestial Frost 100ml', slug: 'celestial-frost', img: 'celestial-frost', product: products[2] },
+  { title: 'Celestial Surge 2ml Sample', slug: 'celestial-surge', img: 'celestial-surge', product: products[3] },
+  { title: 'Glacier Bloom 2ml Sample', slug: 'glacier-bloom', img: 'glacier-bloom', product: products[4] },
+  { title: 'Glacier Bloom 50ml', slug: 'glacier-bloom', img: 'glacier-bloom', product: products[5] },
+  { title: 'Neptune Veil 100ml', slug: 'neptune-veil', img: 'neptune-veil', product: products[0] },
 ]
 
 function ensure(dir){ fs.mkdirSync(dir, { recursive: true }) }
@@ -63,7 +72,7 @@ function rewriteOneProductBlock(block){
   out = out.replace(/href=(['"])[^'"]*add-to-cart[^'"]*\1/g, 'href="/checkout/"')
   out = out.replace(/(aria-label="Add to cart: &ldquo;)[^&]+(&rdquo;")/g, `$1${p.name}$2`)
   out = out.replace(/(data-success_message="&ldquo;)[^&]+(&rdquo; has been added to your cart")/g, `$1${p.name}$2`)
-  out = out.replace(/(<span class="woocommerce-Price-currencySymbol">&#36;<\/span>)[\d,.]+/g, `$1${p.price}`)
+  out = out.replace(/<span class="woocommerce-Price-currencySymbol">(?:&#36;|\$|AED\s*)<\/span>[\d,.]+/g, priceMarkup(p.options[0].price))
   out = out.replace(/data-product_sku="[^"]*"/g, `data-product_sku="NC-${p.slug.toUpperCase()}"`)
   return out
 }
@@ -87,6 +96,99 @@ function rewriteCatalogText(html){
   html = html.replace(/A dark, mysterious scent evoking the ocean’s deepest depths\./g, products[0].desc)
   html = html.replace(/Radiant blend of citrus, florals, and warm musks, evoking the magic of a starlit night in Los Angeles\. Luminous, sensual, and endlessly captivating\./g, products[0].desc)
   return html
+}
+
+function buildSwatches(product){
+  return `<div class="wd-swatches wd-swatches-product  wd-bg-style-2 wd-text-style-2 wd-dis-style-3 wd-size-large wd-shape-square" data-nc-options="1">
+${product.options.map((option, i) => `\t\t\t\t\t\t<a class="wd-swatch wd-enabled wd-text${i === 0 ? ' wd-active' : ''}" href="#" role="button" data-size="${option.label}" data-price="${option.price}">
+\t\t\t\t\t\t\t<span class="wd-swatch-text">${option.label}</span>
+\t\t\t\t\t\t</a>`).join('\n')}
+\t\t\t\t\t</div>`
+}
+
+function injectProductOptionRuntime(html, product){
+  if(!product) return html
+  const payload = JSON.stringify({
+    slug: product.slug,
+    name: product.name,
+    image: product.image,
+    options: product.options,
+  })
+  const runtime = `<style id="nc-product-options-css">
+.wd-swatches-product[data-nc-options="1"] .wd-swatch{cursor:pointer;text-decoration:none!important;transition:border-color .18s ease,background .18s ease,color .18s ease}.wd-swatches-product[data-nc-options="1"] .wd-swatch.wd-active{border-color:#111!important;box-shadow:inset 0 0 0 1px #111!important}.nc-added-msg{margin-top:10px;color:#0f7a35;font-size:13px;font-weight:600}.single_add_to_cart_button[data-selected-size]::after{content:' — ' attr(data-selected-size);font-weight:600;opacity:.9}
+</style><script id="nc-product-options-js">
+(function(){
+  var product = ${payload};
+  function fmt(amount){ return 'AED ' + Number(amount || 0).toLocaleString('en-AE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+  function priceInner(amount){ return '<span class="woocommerce-Price-currencySymbol">AED </span>' + Number(amount || 0).toLocaleString('en-AE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+  function priceTargets(){ return document.querySelectorAll('.wd-single-price .amount bdi, .summary .price .amount bdi, p.price .amount bdi'); }
+  function setPrice(option){
+    priceTargets().forEach(function(el){ el.innerHTML = priceInner(option.price); });
+    document.querySelectorAll('.single_add_to_cart_button, #wd-add-to-cart').forEach(function(btn){
+      btn.dataset.selectedSize = option.label;
+      btn.dataset.selectedPrice = String(option.price);
+    });
+  }
+  function setupSwatches(){
+    var wrap = document.querySelector('.wd-swatches-product');
+    if(!wrap) return;
+    wrap.setAttribute('data-nc-options','1');
+    var anchors = Array.prototype.slice.call(wrap.querySelectorAll('.wd-swatch'));
+    product.options.forEach(function(option, i){
+      var a = anchors[i];
+      if(!a) return;
+      a.href = '#';
+      a.setAttribute('role','button');
+      a.dataset.size = option.label;
+      a.dataset.price = String(option.price);
+      var text = a.querySelector('.wd-swatch-text') || a;
+      text.textContent = option.label;
+      a.classList.toggle('wd-active', i === 0);
+      a.addEventListener('click', function(ev){
+        ev.preventDefault();
+        ev.stopPropagation();
+        anchors.forEach(function(x){ x.classList.remove('wd-active'); });
+        a.classList.add('wd-active');
+        setPrice(option);
+      }, true);
+    });
+    anchors.slice(product.options.length).forEach(function(a){ a.remove(); });
+    setPrice(product.options[0]);
+  }
+  function setupQty(){
+    document.querySelectorAll('.quantity').forEach(function(q){
+      var input = q.querySelector('input.qty');
+      if(!input) return;
+      q.querySelectorAll('.minus').forEach(function(btn){ btn.addEventListener('click', function(ev){ ev.preventDefault(); input.value = Math.max(Number(input.min || 1), Number(input.value || 1) - 1); }); });
+      q.querySelectorAll('.plus').forEach(function(btn){ btn.addEventListener('click', function(ev){ ev.preventDefault(); input.value = Number(input.value || 1) + 1; }); });
+    });
+  }
+  function setupCart(){
+    document.querySelectorAll('form.cart').forEach(function(form){
+      form.setAttribute('action', '/product/' + product.slug + '/');
+      form.addEventListener('submit', function(ev){
+        ev.preventDefault();
+        var active = document.querySelector('.wd-swatches-product .wd-swatch.wd-active');
+        var option = product.options.find(function(x){ return active && active.dataset.size === x.label; }) || product.options[0];
+        var qtyInput = form.querySelector('input.qty');
+        var qty = Math.max(1, Number(qtyInput && qtyInput.value || 1));
+        try {
+          var item = { slug: product.slug, name: product.name, size: option.label, priceAed: option.price, qty: qty, image: product.image };
+          localStorage.setItem('niche-perfumes-last-item', JSON.stringify(item));
+        } catch(e) {}
+        var btn = form.querySelector('.single_add_to_cart_button') || form.querySelector('button[type="submit"]');
+        if(btn){ btn.textContent = 'Added ✓'; setTimeout(function(){ btn.textContent = 'Add to cart'; btn.dataset.selectedSize = option.label; }, 1200); }
+        var msg = form.querySelector('.nc-added-msg');
+        if(!msg){ msg = document.createElement('div'); msg.className = 'nc-added-msg'; form.appendChild(msg); }
+        msg.textContent = product.name + ' / ' + option.label + ' — ' + fmt(option.price) + ' added.';
+      }, true);
+    });
+  }
+  function init(){ setupSwatches(); setupQty(); setupCart(); }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+</script>`
+  return html.replace('</body>', `${runtime}</body>`)
 }
 
 function rewriteNavigation(html){
@@ -121,7 +223,9 @@ function applyProductDetail(html, product){
   html = html.replace(/(<meta property="og:description" content=")[^"]*(" \/>)/, `$1${product.desc}$2`)
   html = html.replace(/(<meta property="og:image" content=")[^"]*(" \/>)/, `$1${product.image}$2`)
   html = html.replace(/(<link rel="canonical" href=")[^"]*(" \/>)/, `$1/product/${product.slug}/$2`)
-  html = html.replace(/(<span class="woocommerce-Price-currencySymbol">&#36;<\/span>)[\d,.]+/, `$1${product.price}`)
+  html = html.replace(/<span class="woocommerce-Price-currencySymbol">(?:&#36;|\$|AED\s*)<\/span>[\d,.]+/, priceMarkup(product.options[0].price))
+  html = html.replace(/(<form class="cart" action=")[^"]*(" method="post")/, `$1/product/${product.slug}/$2`)
+  html = html.replace(/<div class="wd-swatches wd-swatches-product[\s\S]*?<\/div>/, buildSwatches(product))
   html = html.replace(/(<p>)[^<]*(niche perfume decant|travel-ready|extrait de parfum|Amouage|BDK Paris)[^<]*(<\/p>)/, `$1${product.desc}$3`)
   return html
 }
@@ -153,6 +257,8 @@ function rewriteHtml(html, page, detailProduct = null){
   // Runtime guard: WoodMart's remote JS can rehydrate links after load, so rewrite and intercept every click.
   const cleanup = `<style id="static-clone-cleanup">.mfp-bg,.mfp-wrap,.wd-close-side,.xts-buy,.xts-show-demos,.xts-demos-preview,.xts-promo-popup,.wd-popup,.wd-promo-popup,a[href*="themeforest"],a[href*="xtemos.com/item/woodmart"],a[href*="woodmart.xtemos.com/main"]{display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important}html,body{overflow:auto!important}.wd-product img,.woocommerce-product-gallery__image img{object-fit:contain!important;background:#fff!important}</style><script>(function(){function localFor(h){if(!h)return null;try{var u=new URL(h,location.origin);if(u.origin===location.origin)return null;if(u.hostname!=='woodmart.xtemos.com')return null;if(/^\\/product\\//.test(u.pathname)||/^\\/perfumes\\/product\\//.test(u.pathname))return '/product/${products[0].slug}/';if(u.pathname==='/perfumes/'&&u.search.indexOf('add-to-cart=')>=0)return '/checkout/';if(/^\\/perfumes\\/(cart|checkout)\\/?$/.test(u.pathname))return '/checkout/';if(/^\\/perfumes\\//.test(u.pathname))return '/';return '/'}catch(e){return null}}function rewriteWoodmartLinks(){document.querySelectorAll('a[href],form[action]').forEach(function(el){var attr=el.tagName==='FORM'?'action':'href';var target=localFor(el.getAttribute(attr));if(target)el.setAttribute(attr,target)})}function killWoodmartDemo(){rewriteWoodmartLinks();document.querySelectorAll('.mfp-bg,.mfp-wrap,.wd-close-side,.xts-buy,.xts-show-demos,.xts-demos-preview,.xts-promo-popup,.wd-popup,.wd-promo-popup,a[href*="themeforest"],a[href*="xtemos.com/item/woodmart"],a[href*="woodmart.xtemos.com/main"]').forEach(function(e){e.remove()});document.querySelectorAll('a,button,div,span').forEach(function(e){if(/Buy\\s+WoodMart/i.test((e.textContent||'').trim())){var t=e.closest('a,button,.xts-buy,.xts-demos-preview,.xts-show-demos')||e;e.remove?t.remove():t.style.display='none'}});document.documentElement.style.overflow='auto';if(document.body)document.body.style.overflow='auto'}document.addEventListener('click',function(ev){var a=ev.target&&ev.target.closest&&ev.target.closest('a[href]');if(!a)return;var target=localFor(a.getAttribute('href'));if(target){ev.preventDefault();ev.stopPropagation();location.href=target}},true);killWoodmartDemo();document.addEventListener('DOMContentLoaded',killWoodmartDemo);window.addEventListener('load',killWoodmartDemo);new MutationObserver(killWoodmartDemo).observe(document.documentElement,{childList:true,subtree:true,attributes:true,attributeFilter:['href','action']});})();</script>`
   html = html.replace('</head>', `${cleanup}<meta name="static-clone" content="woodmart-${page}"></head>`)
+  html = html.replace(/<span class="woocommerce-Price-currencySymbol">(?:&#36;|\$)<\/span>/g, '<span class="woocommerce-Price-currencySymbol">AED </span>')
+  html = injectProductOptionRuntime(html, detailProduct)
   return html
 }
 
