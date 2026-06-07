@@ -70,7 +70,9 @@ function copyLogo(){
 function replaceUploadUrls(block, image){
   return block
     .replace(/https:\/\/woodmart\.xtemos\.com\/perfumes\/wp-content\/uploads\/sites\/32\/2025\/11\/[^"'()\s<>]+?\.(?:jpe?g|jpg|png|webp)(?:\.webp)?/g, image)
+    .replace(/https:\/\/woodmart\.xtemos\.com\/images\/products\/[^"'()\s<>]+?\.webp/g, image)
     .replace(/https:\\?\/\\?\/woodmart\.xtemos\.com\\?\/perfumes\\?\/wp-content\\?\/uploads\\?\/sites\\?\/32\\?\/2025\\?\/11\\?\/[^"'()\s<>]+?\.(?:jpe?g|jpg|png|webp)(?:\.webp)?/g, image.replaceAll('/', '\\/'))
+    .replace(/https:\\?\/\\?\/woodmart\.xtemos\.com\\?\/images\\?\/products\\?\/[^"'()\s<>]+?\.webp/g, image.replaceAll('/', '\\/'))
     .replace(/(data-image-srcset|srcset)="[^"]*\/images\/products\/[^"']*"/g, `$1="${image} 700w"`)
 }
 
