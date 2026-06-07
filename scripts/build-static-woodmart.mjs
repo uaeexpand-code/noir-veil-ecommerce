@@ -318,6 +318,10 @@ function applyTaraBranding(html){
   return html
 }
 
+function removeInstagramFeedSection(html){
+  return html.replace(/<div class="wp-block-wd-row wd-0a8b8d92">[\s\S]*?(?=\s*<\/article>)/, '')
+}
+
 function rewriteHtml(html, page, detailProduct = null){
   // Make root-relative WoodMart assets resolve on Vercel exactly like they did in the local saved render.
   html = html.replace(/(["'(=\s])\/perfumes\//g, `$1${perfRemote}/`)
@@ -342,6 +346,7 @@ function rewriteHtml(html, page, detailProduct = null){
   html = rewriteNavigation(html)
   html = applyProductDetail(html, detailProduct)
   html = applyTaraBranding(html)
+  html = removeInstagramFeedSection(html)
 
   // Runtime guard: WoodMart's remote JS can rehydrate links after load, so rewrite and intercept every click.
   const cleanup = `<style id="static-clone-cleanup">.mfp-bg,.mfp-wrap,.wd-close-side,.xts-buy,.xts-show-demos,.xts-demos-preview,.xts-promo-popup,.wd-popup,.wd-promo-popup,a[href*="themeforest"],a[href*="xtemos.com/item/woodmart"],a[href*="woodmart.xtemos.com/main"]{display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important}html,body{overflow:auto!important}.wd-product img,.woocommerce-product-gallery__image img{object-fit:contain!important;background:#fff!important}</style><script>(function(){function localFor(h){if(!h)return null;try{var u=new URL(h,location.origin);if(u.origin===location.origin)return null;if(u.hostname!=='woodmart.xtemos.com')return null;if(/^\\/product\\//.test(u.pathname)||/^\\/perfumes\\/product\\//.test(u.pathname))return '/product/${products[0].slug}/';if(u.pathname==='/perfumes/'&&u.search.indexOf('add-to-cart=')>=0)return '/checkout/';if(/^\\/perfumes\\/(cart|checkout)\\/?$/.test(u.pathname))return '/checkout/';if(/^\\/perfumes\\//.test(u.pathname))return '/';return '/'}catch(e){return null}}function rewriteWoodmartLinks(){document.querySelectorAll('a[href],form[action]').forEach(function(el){var attr=el.tagName==='FORM'?'action':'href';var target=localFor(el.getAttribute(attr));if(target)el.setAttribute(attr,target)})}function killWoodmartDemo(){rewriteWoodmartLinks();document.querySelectorAll('.mfp-bg,.mfp-wrap,.wd-close-side,.xts-buy,.xts-show-demos,.xts-demos-preview,.xts-promo-popup,.wd-popup,.wd-promo-popup,a[href*="themeforest"],a[href*="xtemos.com/item/woodmart"],a[href*="woodmart.xtemos.com/main"]').forEach(function(e){e.remove()});document.querySelectorAll('a,button,div,span').forEach(function(e){if(/Buy\\s+(?:WoodMart|TARA)/i.test((e.textContent||'').trim())){var t=e.closest('a,button,.xts-buy,.xts-demos-preview,.xts-show-demos')||e;e.remove?t.remove():t.style.display='none'}});document.documentElement.style.overflow='auto';if(document.body)document.body.style.overflow='auto'}document.addEventListener('click',function(ev){var a=ev.target&&ev.target.closest&&ev.target.closest('a[href]');if(!a)return;var target=localFor(a.getAttribute('href'));if(target){ev.preventDefault();ev.stopPropagation();location.href=target}},true);killWoodmartDemo();document.addEventListener('DOMContentLoaded',killWoodmartDemo);window.addEventListener('load',killWoodmartDemo);new MutationObserver(killWoodmartDemo).observe(document.documentElement,{childList:true,subtree:true,attributes:true,attributeFilter:['href','action']});})();</script>`
