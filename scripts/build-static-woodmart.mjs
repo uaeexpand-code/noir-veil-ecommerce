@@ -264,13 +264,56 @@ function applyTaraBranding(html){
   const logo = '/images/tara-logo.png'
   html = html.replace(/https:\/\/woodmart\.xtemos\.com\/perfumes\/wp-content\/uploads\/sites\/32\/2025\/11\/prf-logotype-(?:white|black)\.svg/g, logo)
   html = html.replace(/https:\\\/\\\/woodmart\.xtemos\.com\\\/perfumes\\\/wp-content\\\/uploads\\\/sites\\\/32\\\/2025\\\/11\\\/prf-logotype-(?:white|black)\.svg/g, logo.replaceAll('/', '\\/'))
-  html = html.replace(/Niche Center|NICHE CENTER\.?|Niche Perfumes|Noir Veil/g, 'TARA')
-  html = html.replace(/@niche_center/g, '@by.tara4')
-  html = html.replace(/https:\/\/www\.instagram\.com\/niche_center\//g, 'https://www.instagram.com/by.tara4/')
+  html = html.replace(/Niche Center|NICHE CENTER\.?|Niche Perfumes|Noir Veil|WoodMart Perfumery|WoodMart/g, 'TARA')
+  html = html.replace(/@niche_center|@xtemos\.studio/g, '@by.tara4')
+  html = html.replace(/https:\/\/www\.instagram\.com\/(?:niche_center|xtemos\.studio)\//g, 'https://www.instagram.com/by.tara4/')
+  html = html.replace(/New Fragrance in the Opus Essence/g, 'TARA مرشات ودخون بثبات يدوم طويلًا')
+  html = html.replace(/Deep Fragrance With a Refined Intensity/g, 'لسنـا الوحيدون لكننـا نتميز')
+  html = html.replace(/Light Fragrance with a Silky Touch/g, 'مـرشاتنـا تغنـيكم عن العـطور')
+  html = html.replace(/Shop by Olfactory Family/g, 'تسوقي حسب النوع')
+  html = html.replace(/Journal Articles/g, 'من عالم TARA')
+  html = html.replace(/Scent & Sensibility/g, 'ثبات يدوم طويلًا')
+  html = html.replace(/Notes of Elegance/g, 'مرشات تغنيكم عن العطور')
+  html = html.replace(/The Perfume Journal/g, 'دخون فاخر للمناسبات')
+  html = html.replace(/Beyond the Bottle/g, 'مرخصة من اقتصادية دبي')
+  html = html.replace(/Aroma Diaries/g, 'تواصلوا عبر واتساب')
+  html = html.replace(/Connect to our\s*Instagram/g, 'تابعونا على Instagram')
+  html = html.replace(/At TARA, we see perfume as more than just a scent — it is identity, memory and emotion captured in a bottle\./g, 'لسنـا الوحيدون لكننـا نتميز بثبات يدوم طويلًا. مرشات TARA تغنيكم عن العطور، ودخوننا يضيف لمسة فخامة لكل مناسبة.')
+  html = html.replace(/Receive exclusive content and be the first to know about product launches and special announcements\./g, 'تابعي جديد TARA من المرشات والدخون، العروض، والمنتجات الجديدة أولاً بأول.')
+  html = html.replace(/TARA © 2026 created by Xtemos Studio\./g, 'TARA © 2026 — مرخصة من اقتصادية دبي. للتواصل: +971 58 883 0870')
+  html = html.replace(/Fragrances/g, 'مرشات ودخون')
+  html = html.replace(/Collections for Her/g, 'مرشات')
+  html = html.replace(/Collections for Him/g, 'دخون')
+  html = html.replace(/All Collections/g, 'كل منتجات TARA')
+  html = html.replace(/Journal/g, 'Instagram')
+  html = html.replace(/About Us/g, 'عن TARA')
+  html = html.replace(/Contact Us/g, 'WhatsApp')
+  html = html.replace(/Blog/g, 'Instagram')
+  html = html.replace(/Cookies/g, 'License')
+  html = html.replace(/Privacy/g, 'Dubai DED')
+  html = html.replace(/Floral/g, 'مرش')
+  html = html.replace(/Woody/g, 'دخون')
+  html = html.replace(/Amber/g, 'تارا')
+  html = html.replace(/Chypre/g, 'الطيب')
+  html = html.replace(/Leather/g, 'سحاب')
+  html = html.replace(/Aldehyde/g, 'غرام')
+  html = html.replace(/Spicy/g, 'شيخة')
+  html = html.replace(/Fougere/g, 'الظبي')
+  html = html.replace(/A collection of fresh, luminous scents inspired by the mystery of nightfall\. Crisp citruses, airy florals, and cool musks evoke the serenity of moonlit skies and/g, 'تشكيلة TARA من المرشات والدخون صُممت لمن يحبون الثبات والفخامة اليومية. روائح ناعمة، حضور واضح، ولمسة شرقية أنيقة.')
+  html = html.replace(/A collection of delicate, weightless fragrances that capture the essence of air and light\. Soft florals, sheer musks, and dewy accords evoke a dreamlike, ethere/g, 'مرشات TARA خيار عملي وأنيق لتعطير المنزل، المفارش، والعبايات برائحة ثابتة تغنيكم عن العطور.')
+  html = html.replace(/تشكيلة TARA من المرشات والدخون صُممت لمن يحبون الثبات والفخامة اليومية\. روائح ناعمة، حضور واضح، ولمسة شرقية أنيقة\.[^<]*/g, 'تشكيلة TARA من المرشات والدخون صُممت لمن يحبون الثبات والفخامة اليومية. روائح ناعمة، حضور واضح، ولمسة شرقية أنيقة.')
+  html = html.replace(/مرشات TARA خيار عملي وأنيق لتعطير المنزل، المفارش، والعبايات برائحة ثابتة تغنيكم عن العطور\.[^<]*/g, 'مرشات TARA خيار عملي وأنيق لتعطير المنزل، المفارش، والعبايات برائحة ثابتة تغنيكم عن العطور.')
+  html = html.replace(/Luxury fusion of rich rose and warm oud[^<]*/g, 'لسنـا الوحيدون لكننـا نتميز بثبات يدوم طويلًا، بروائح مصممة لتبقى وتترك حضورًا راقيًا.')
+  html = html.replace(/Refreshing burst of citrus and oceanic notes[^<]*/g, 'مرشاتنا تغنيكم عن العطور وتمنح المنزل والعباية رائحة فاخرة بنَفَس TARA المميز.')
   html = html.replace(/<img([^>]+)src="\/images\/tara-logo\.png"([^>]*)>/g, '<img$1src="/images/tara-logo.png"$2>')
   html = html.replace(/(<img[^>]+src="\/images\/tara-logo\.png"[^>]*style=")[^"]*(")/g, '$1max-width:150px;max-height:62px;width:auto;height:auto;object-fit:contain;$2')
-  const css = `<style id="tara-branding-css">.site-logo img[src="/images/tara-logo.png"],footer img[src="/images/tara-logo.png"],.wp-block-wd-image img[src="/images/tara-logo.png"]{max-width:150px!important;max-height:62px!important;width:auto!important;height:auto!important;object-fit:contain!important}.wd-product .price,.summary .price{direction:ltr;unicode-bidi:isolate}.wd-product .product-image-link img,.woocommerce-product-gallery__image img{background:#fff!important}.wd-product .wd-entities-title a{direction:rtl}</style>`
-  return html.replace('</head>', `${css}</head>`)
+  const css = `<style id="tara-branding-css">.site-logo img[src="/images/tara-logo.png"],footer img[src="/images/tara-logo.png"],.wp-block-wd-image img[src="/images/tara-logo.png"]{max-width:150px!important;max-height:62px!important;width:auto!important;height:auto!important;object-fit:contain!important}.wd-product .price,.summary .price{direction:ltr;unicode-bidi:isolate}.wd-product .product-image-link img,.woocommerce-product-gallery__image img{background:#fff!important}.wd-product .wd-entities-title a{direction:rtl}.tara-client-strip{background:#211915;color:#fff;text-align:center;padding:10px 16px;font-size:13px;letter-spacing:.02em}.tara-floating{position:fixed;right:18px;bottom:18px;z-index:9999;display:flex;flex-direction:column;gap:10px}.tara-floating a{display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:50%;background:#211915;color:#fff!important;text-decoration:none!important;box-shadow:0 10px 30px rgba(0,0,0,.18);font-weight:800}.tara-floating a.wa{background:#1f7a4d}.tara-floating a.ig{background:#5b3d31}@media(max-width:768px){.tara-client-strip{font-size:12px;padding:8px 12px}.tara-floating{right:12px;bottom:12px}.tara-floating a{width:44px;height:44px}}</style>`
+  const cta = `<div class="tara-floating" aria-label="TARA contact links"><a class="ig" href="https://www.instagram.com/by.tara4/" target="_blank" rel="noreferrer">IG</a><a class="wa" href="https://wa.me/971588830870" target="_blank" rel="noreferrer">WA</a></div>`
+  html = html.replace('<body', '<body')
+  html = html.replace('</body>', `${cta}</body>`)
+  html = html.replace('</head>', `${css}</head>`)
+  html = html.replace(/<body([^>]*)>/, '<body$1><div class="tara-client-strip">🤎 لسنـا الوحيدون لكننـا نتميز بثبات يدوم طويلًا — مرخصة من اقتصادية دبي — +971 58 883 0870</div>')
+  return html
 }
 
 function rewriteHtml(html, page, detailProduct = null){
@@ -299,7 +342,7 @@ function rewriteHtml(html, page, detailProduct = null){
   html = applyTaraBranding(html)
 
   // Runtime guard: WoodMart's remote JS can rehydrate links after load, so rewrite and intercept every click.
-  const cleanup = `<style id="static-clone-cleanup">.mfp-bg,.mfp-wrap,.wd-close-side,.xts-buy,.xts-show-demos,.xts-demos-preview,.xts-promo-popup,.wd-popup,.wd-promo-popup,a[href*="themeforest"],a[href*="xtemos.com/item/woodmart"],a[href*="woodmart.xtemos.com/main"]{display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important}html,body{overflow:auto!important}.wd-product img,.woocommerce-product-gallery__image img{object-fit:contain!important;background:#fff!important}</style><script>(function(){function localFor(h){if(!h)return null;try{var u=new URL(h,location.origin);if(u.origin===location.origin)return null;if(u.hostname!=='woodmart.xtemos.com')return null;if(/^\\/product\\//.test(u.pathname)||/^\\/perfumes\\/product\\//.test(u.pathname))return '/product/${products[0].slug}/';if(u.pathname==='/perfumes/'&&u.search.indexOf('add-to-cart=')>=0)return '/checkout/';if(/^\\/perfumes\\/(cart|checkout)\\/?$/.test(u.pathname))return '/checkout/';if(/^\\/perfumes\\//.test(u.pathname))return '/';return '/'}catch(e){return null}}function rewriteWoodmartLinks(){document.querySelectorAll('a[href],form[action]').forEach(function(el){var attr=el.tagName==='FORM'?'action':'href';var target=localFor(el.getAttribute(attr));if(target)el.setAttribute(attr,target)})}function killWoodmartDemo(){rewriteWoodmartLinks();document.querySelectorAll('.mfp-bg,.mfp-wrap,.wd-close-side,.xts-buy,.xts-show-demos,.xts-demos-preview,.xts-promo-popup,.wd-popup,.wd-promo-popup,a[href*="themeforest"],a[href*="xtemos.com/item/woodmart"],a[href*="woodmart.xtemos.com/main"]').forEach(function(e){e.remove()});document.querySelectorAll('a,button,div,span').forEach(function(e){if(/Buy\\s+WoodMart/i.test((e.textContent||'').trim())){var t=e.closest('a,button,.xts-buy,.xts-demos-preview,.xts-show-demos')||e;e.remove?t.remove():t.style.display='none'}});document.documentElement.style.overflow='auto';if(document.body)document.body.style.overflow='auto'}document.addEventListener('click',function(ev){var a=ev.target&&ev.target.closest&&ev.target.closest('a[href]');if(!a)return;var target=localFor(a.getAttribute('href'));if(target){ev.preventDefault();ev.stopPropagation();location.href=target}},true);killWoodmartDemo();document.addEventListener('DOMContentLoaded',killWoodmartDemo);window.addEventListener('load',killWoodmartDemo);new MutationObserver(killWoodmartDemo).observe(document.documentElement,{childList:true,subtree:true,attributes:true,attributeFilter:['href','action']});})();</script>`
+  const cleanup = `<style id="static-clone-cleanup">.mfp-bg,.mfp-wrap,.wd-close-side,.xts-buy,.xts-show-demos,.xts-demos-preview,.xts-promo-popup,.wd-popup,.wd-promo-popup,a[href*="themeforest"],a[href*="xtemos.com/item/woodmart"],a[href*="woodmart.xtemos.com/main"]{display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important}html,body{overflow:auto!important}.wd-product img,.woocommerce-product-gallery__image img{object-fit:contain!important;background:#fff!important}</style><script>(function(){function localFor(h){if(!h)return null;try{var u=new URL(h,location.origin);if(u.origin===location.origin)return null;if(u.hostname!=='woodmart.xtemos.com')return null;if(/^\\/product\\//.test(u.pathname)||/^\\/perfumes\\/product\\//.test(u.pathname))return '/product/${products[0].slug}/';if(u.pathname==='/perfumes/'&&u.search.indexOf('add-to-cart=')>=0)return '/checkout/';if(/^\\/perfumes\\/(cart|checkout)\\/?$/.test(u.pathname))return '/checkout/';if(/^\\/perfumes\\//.test(u.pathname))return '/';return '/'}catch(e){return null}}function rewriteWoodmartLinks(){document.querySelectorAll('a[href],form[action]').forEach(function(el){var attr=el.tagName==='FORM'?'action':'href';var target=localFor(el.getAttribute(attr));if(target)el.setAttribute(attr,target)})}function killWoodmartDemo(){rewriteWoodmartLinks();document.querySelectorAll('.mfp-bg,.mfp-wrap,.wd-close-side,.xts-buy,.xts-show-demos,.xts-demos-preview,.xts-promo-popup,.wd-popup,.wd-promo-popup,a[href*="themeforest"],a[href*="xtemos.com/item/woodmart"],a[href*="woodmart.xtemos.com/main"]').forEach(function(e){e.remove()});document.querySelectorAll('a,button,div,span').forEach(function(e){if(/Buy\\s+(?:WoodMart|TARA)/i.test((e.textContent||'').trim())){var t=e.closest('a,button,.xts-buy,.xts-demos-preview,.xts-show-demos')||e;e.remove?t.remove():t.style.display='none'}});document.documentElement.style.overflow='auto';if(document.body)document.body.style.overflow='auto'}document.addEventListener('click',function(ev){var a=ev.target&&ev.target.closest&&ev.target.closest('a[href]');if(!a)return;var target=localFor(a.getAttribute('href'));if(target){ev.preventDefault();ev.stopPropagation();location.href=target}},true);killWoodmartDemo();document.addEventListener('DOMContentLoaded',killWoodmartDemo);window.addEventListener('load',killWoodmartDemo);new MutationObserver(killWoodmartDemo).observe(document.documentElement,{childList:true,subtree:true,attributes:true,attributeFilter:['href','action']});})();</script>`
   html = html.replace('</head>', `${cleanup}<meta name="static-clone" content="woodmart-${page}"></head>`)
   html = html.replace(/<span class="woocommerce-Price-currencySymbol">(?:&#36;|\$)<\/span>/g, '<span class="woocommerce-Price-currencySymbol">AED </span>')
   html = injectProductOptionRuntime(html, detailProduct)
