@@ -1,18 +1,92 @@
 {
   "rewrites": [
-    { "source": "/product/bdk-paris-gris-decant", "destination": "/product/bdk-paris-gris-decant/index.html" },
-    { "source": "/product/bdk-paris-gris-decant/", "destination": "/product/bdk-paris-gris-decant/index.html" },
-    { "source": "/product/bdk-paris-emerald-decant", "destination": "/product/bdk-paris-emerald-decant/index.html" },
-    { "source": "/product/bdk-paris-emerald-decant/", "destination": "/product/bdk-paris-emerald-decant/index.html" },
-    { "source": "/product/bdk-paris-rouge-decant", "destination": "/product/bdk-paris-rouge-decant/index.html" },
-    { "source": "/product/bdk-paris-rouge-decant/", "destination": "/product/bdk-paris-rouge-decant/index.html" },
-    { "source": "/product/maison-crivelli-cuir-infrarouge", "destination": "/product/maison-crivelli-cuir-infrarouge/index.html" },
-    { "source": "/product/maison-crivelli-cuir-infrarouge/", "destination": "/product/maison-crivelli-cuir-infrarouge/index.html" },
-    { "source": "/product/amouage-reasons-decant", "destination": "/product/amouage-reasons-decant/index.html" },
-    { "source": "/product/amouage-reasons-decant/", "destination": "/product/amouage-reasons-decant/index.html" },
-    { "source": "/product/amouage-reflection-decant", "destination": "/product/amouage-reflection-decant/index.html" },
-    { "source": "/product/amouage-reflection-decant/", "destination": "/product/amouage-reflection-decant/index.html" },
-    { "source": "/checkout", "destination": "/checkout/index.html" },
-    { "source": "/checkout/", "destination": "/checkout/index.html" }
+    {
+      "source": "/product/marash-al-tayyib",
+      "destination": "/product/marash-al-tayyib/index.html"
+    },
+    {
+      "source": "/product/marash-al-tayyib/",
+      "destination": "/product/marash-al-tayyib/index.html"
+    },
+    {
+      "source": "/product/marash-sahab",
+      "destination": "/product/marash-sahab/index.html"
+    },
+    {
+      "source": "/product/marash-sahab/",
+      "destination": "/product/marash-sahab/index.html"
+    },
+    {
+      "source": "/product/marash-ghram",
+      "destination": "/product/marash-ghram/index.html"
+    },
+    {
+      "source": "/product/marash-ghram/",
+      "destination": "/product/marash-ghram/index.html"
+    },
+    {
+      "source": "/product/marash-tara",
+      "destination": "/product/marash-tara/index.html"
+    },
+    {
+      "source": "/product/marash-tara/",
+      "destination": "/product/marash-tara/index.html"
+    },
+    {
+      "source": "/product/dukhoon-sheikha",
+      "destination": "/product/dukhoon-sheikha/index.html"
+    },
+    {
+      "source": "/product/dukhoon-sheikha/",
+      "destination": "/product/dukhoon-sheikha/index.html"
+    },
+    {
+      "source": "/product/marash-tara-clear",
+      "destination": "/product/marash-tara-clear/index.html"
+    },
+    {
+      "source": "/product/marash-tara-clear/",
+      "destination": "/product/marash-tara-clear/index.html"
+    },
+    {
+      "source": "/product/dukhoon-sheikha-v2",
+      "destination": "/product/dukhoon-sheikha-v2/index.html"
+    },
+    {
+      "source": "/product/dukhoon-sheikha-v2/",
+      "destination": "/product/dukhoon-sheikha-v2/index.html"
+    },
+    {
+      "source": "/product/dukhoon-sheikha-v3",
+      "destination": "/product/dukhoon-sheikha-v3/index.html"
+    },
+    {
+      "source": "/product/dukhoon-sheikha-v3/",
+      "destination": "/product/dukhoon-sheikha-v3/index.html"
+    },
+    {
+      "source": "/product/dukhoon-alzaby",
+      "destination": "/product/dukhoon-alzaby/index.html"
+    },
+    {
+      "source": "/product/dukhoon-alzaby/",
+      "destination": "/product/dukhoon-alzaby/index.html"
+    },
+    {
+      "source": "/product/marash-albadr",
+      "destination": "/product/marash-albadr/index.html"
+    },
+    {
+      "source": "/product/marash-albadr/",
+      "destination": "/product/marash-albadr/index.html"
+    },
+    {
+      "source": "/checkout",
+      "destination": "/checkout/index.html"
+    },
+    {
+      "source": "/checkout/",
+      "destination": "/checkout/index.html"
+    }
   ]
 }

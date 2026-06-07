@@ -4,17 +4,22 @@ import path from 'node:path'
 const project = process.cwd()
 const refDir = path.join(project, 'static', 'woodmart')
 const productSrcDir = path.join(project, 'static', 'products')
+const logoSrc = path.join(project, 'static', 'logo', 'tara-logo.png')
 const dist = path.join(project, 'dist')
 const remote = 'https://woodmart.xtemos.com'
 const perfRemote = `${remote}/perfumes`
 
 const products = [
-  { slug: 'bdk-paris-gris-decant', name: 'BDK Paris Gris Decant', price: '35.00', image: '/images/products/1.webp', desc: 'A refined BDK Paris niche perfume decant available in 2ml, 5ml, and 10ml spray sizes.', options: [{ label: '2ml Sample', price: 35 }, { label: '5ml', price: 75 }, { label: '10ml', price: 140 }] },
-  { slug: 'bdk-paris-emerald-decant', name: 'BDK Paris Emerald Decant', price: '35.00', image: '/images/products/2.webp', desc: 'A fresh green BDK Paris niche fragrance decant prepared in travel-ready atomizers.', options: [{ label: '2ml Sample', price: 35 }, { label: '5ml', price: 75 }, { label: '10ml', price: 140 }] },
-  { slug: 'bdk-paris-rouge-decant', name: 'BDK Paris Rouge Decant', price: '35.00', image: '/images/products/3.webp', desc: 'A bold red BDK Paris niche fragrance decant with 2ml, 5ml, and 10ml options.', options: [{ label: '2ml Sample', price: 35 }, { label: '5ml', price: 75 }, { label: '10ml', price: 140 }] },
-  { slug: 'maison-crivelli-cuir-infrarouge', name: 'Maison Crivelli Cuir InfraRouge', price: '45.00', image: '/images/products/4.webp', desc: 'Maison Crivelli Cuir InfraRouge extrait de parfum decant in premium spray sizes.', options: [{ label: '2ml Sample', price: 45 }, { label: '5ml', price: 105 }, { label: '10ml', price: 205 }] },
-  { slug: 'amouage-reasons-decant', name: 'Amouage Reasons Decant', price: '45.00', image: '/images/products/5.webp', desc: 'Amouage Reasons perfume decant, bottled in clean 2ml, 5ml, and 10ml atomizers.', options: [{ label: '2ml Sample', price: 45 }, { label: '5ml', price: 100 }, { label: '10ml', price: 190 }] },
-  { slug: 'amouage-reflection-decant', name: 'Amouage Reflection Decant', price: '45.00', image: '/images/products/6.webp', desc: 'Amouage Reflection niche perfume decant with elegant travel spray presentation.', options: [{ label: '2ml Sample', price: 45 }, { label: '5ml', price: 100 }, { label: '10ml', price: 190 }] },
+  { slug: 'marash-al-tayyib', name: 'مرش الطيب', type: 'مرش', price: 168, image: '/images/products/1.webp', desc: 'مرش معطر من TARA بلمسة فاخرة مناسبة للمنزل والمفارش والعبايات.', options: [{ label: 'مرش', price: 168 }] },
+  { slug: 'marash-sahab', name: 'مرش سحاب', type: 'مرش', price: 197, image: '/images/products/2.webp', desc: 'مرش سحاب من TARA برائحة ناعمة ومنعشة للاستخدام اليومي.', options: [{ label: 'مرش', price: 197 }] },
+  { slug: 'marash-ghram', name: 'مرش غرام', type: 'مرش', price: 214, image: '/images/products/3.webp', desc: 'مرش غرام من TARA، عطر أنيق بانتشار جميل وثبات لطيف.', options: [{ label: 'مرش', price: 214 }] },
+  { slug: 'marash-tara', name: 'مرش تارا', type: 'مرش', price: 188, image: '/images/products/4.webp', desc: 'مرش تارا بتوقيع فاخر ورائحة دافئة تناسب الأجواء الراقية.', options: [{ label: 'مرش', price: 188 }] },
+  { slug: 'dukhoon-sheikha', name: 'دخون شيخة', type: 'دخون', price: 225, image: '/images/products/5.webp', desc: 'دخون شيخة من TARA بتركيبة فاخرة تضيف عبقاً شرقياً للمكان.', options: [{ label: 'دخون', price: 225 }] },
+  { slug: 'marash-tara-clear', name: 'مرش تارا كلير', type: 'مرش', price: 196, image: '/images/products/6.webp', desc: 'مرش تارا كلير برائحة نظيفة وخفيفة للاستخدام المتكرر.', options: [{ label: 'مرش', price: 196 }] },
+  { slug: 'dukhoon-sheikha-v2', name: 'دخون شيخه', type: 'دخون', price: 242, image: '/images/products/7.webp', desc: 'دخون شيخه بعبير شرقي فاخر ولمسة ذهبية راقية.', options: [{ label: 'دخون', price: 242 }] },
+  { slug: 'dukhoon-sheikha-v3', name: 'دخون شيخه', type: 'دخون', price: 255, image: '/images/products/8.webp', desc: 'دخون شيخه بإحساس ملكي ودخان عطر فخم للمناسبات.', options: [{ label: 'دخون', price: 255 }] },
+  { slug: 'dukhoon-alzaby', name: 'دخون الظبي', type: 'دخون', price: 170, image: '/images/products/9.webp', desc: 'دخون الظبي من TARA برائحة شرقية ناعمة ومميزة.', options: [{ label: 'دخون', price: 170 }] },
+  { slug: 'marash-albadr', name: 'مرش البدر', type: 'مرش', price: 199, image: '/images/products/10.webp', desc: 'مرش البدر من TARA برائحة مشرقة وفاخرة تناسب كل الأوقات.', options: [{ label: 'مرش', price: 199 }] },
 ]
 
 function formatAed(amount){ return Number(amount).toLocaleString('en-AE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }
@@ -27,17 +32,17 @@ const sourceProducts = [
   { title: 'Amber Bloom 100ml', slug: 'amber-bloom', img: 'amber-bloom', product: products[3] },
   { title: 'Amber Bloom 2ml Sample', slug: 'amber-bloom', img: 'amber-bloom', product: products[4] },
   { title: 'Amber Bloom 50ml', slug: 'amber-bloom', img: 'amber-bloom', product: products[5] },
-  { title: 'Ember Glow 100ml', slug: 'ember-glow', img: 'ember-glow', product: products[0] },
-  { title: 'Golden Veil 100ml', slug: 'golden-veil', img: 'golden-veil', product: products[1] },
-  { title: 'Midnight Azure 100ml', slug: 'midnight-azure', img: 'midnight-azure', product: products[2] },
-  { title: 'Amethyst Haze 100ml', slug: 'amethyst-haze', img: 'amethyst-haze', product: products[3] },
-  { title: 'Amethyst Haze 2ml Sample', slug: 'amethyst-haze', img: 'amethyst-haze', product: products[4] },
+  { title: 'Ember Glow 100ml', slug: 'ember-glow', img: 'ember-glow', product: products[6] },
+  { title: 'Golden Veil 100ml', slug: 'golden-veil', img: 'golden-veil', product: products[7] },
+  { title: 'Midnight Azure 100ml', slug: 'midnight-azure', img: 'midnight-azure', product: products[8] },
+  { title: 'Amethyst Haze 100ml', slug: 'amethyst-haze', img: 'amethyst-haze', product: products[9] },
+  { title: 'Amethyst Haze 2ml Sample', slug: 'amethyst-haze', img: 'amethyst-haze', product: products[0] },
   { title: 'Arctic Dusk 50ml', slug: 'arctic-dusk', img: 'arctic-dusk', product: products[1] },
   { title: 'Celestial Frost 100ml', slug: 'celestial-frost', img: 'celestial-frost', product: products[2] },
   { title: 'Celestial Surge 2ml Sample', slug: 'celestial-surge', img: 'celestial-surge', product: products[3] },
   { title: 'Glacier Bloom 2ml Sample', slug: 'glacier-bloom', img: 'glacier-bloom', product: products[4] },
   { title: 'Glacier Bloom 50ml', slug: 'glacier-bloom', img: 'glacier-bloom', product: products[5] },
-  { title: 'Neptune Veil 100ml', slug: 'neptune-veil', img: 'neptune-veil', product: products[0] },
+  { title: 'Neptune Veil 100ml', slug: 'neptune-veil', img: 'neptune-veil', product: products[6] },
 ]
 
 function ensure(dir){ fs.mkdirSync(dir, { recursive: true }) }
@@ -52,6 +57,14 @@ function copyProductImages(){
     if(!fs.existsSync(src)) throw new Error(`Missing product image: ${src}`)
     fs.copyFileSync(src, path.join(out, `${i + 1}.webp`))
   })
+}
+
+
+function copyLogo(){
+  if(!fs.existsSync(logoSrc)) throw new Error(`Missing logo: ${logoSrc}`)
+  const out = path.join(dist, 'images')
+  ensure(out)
+  fs.copyFileSync(logoSrc, path.join(out, 'tara-logo.png'))
 }
 
 function replaceUploadUrls(block, image){
@@ -246,6 +259,20 @@ function applyProductDetail(html, product){
   return html
 }
 
+
+function applyTaraBranding(html){
+  const logo = '/images/tara-logo.png'
+  html = html.replace(/https:\/\/woodmart\.xtemos\.com\/perfumes\/wp-content\/uploads\/sites\/32\/2025\/11\/prf-logotype-(?:white|black)\.svg/g, logo)
+  html = html.replace(/https:\\\/\\\/woodmart\.xtemos\.com\\\/perfumes\\\/wp-content\\\/uploads\\\/sites\\\/32\\\/2025\\\/11\\\/prf-logotype-(?:white|black)\.svg/g, logo.replaceAll('/', '\\/'))
+  html = html.replace(/Niche Center|NICHE CENTER\.?|Niche Perfumes|Noir Veil/g, 'TARA')
+  html = html.replace(/@niche_center/g, '@by.tara4')
+  html = html.replace(/https:\/\/www\.instagram\.com\/niche_center\//g, 'https://www.instagram.com/by.tara4/')
+  html = html.replace(/<img([^>]+)src="\/images\/tara-logo\.png"([^>]*)>/g, '<img$1src="/images/tara-logo.png"$2>')
+  html = html.replace(/(<img[^>]+src="\/images\/tara-logo\.png"[^>]*style=")[^"]*(")/g, '$1max-width:150px;max-height:62px;width:auto;height:auto;object-fit:contain;$2')
+  const css = `<style id="tara-branding-css">.site-logo img[src="/images/tara-logo.png"],footer img[src="/images/tara-logo.png"],.wp-block-wd-image img[src="/images/tara-logo.png"]{max-width:150px!important;max-height:62px!important;width:auto!important;height:auto!important;object-fit:contain!important}.wd-product .price,.summary .price{direction:ltr;unicode-bidi:isolate}.wd-product .product-image-link img,.woocommerce-product-gallery__image img{background:#fff!important}.wd-product .wd-entities-title a{direction:rtl}</style>`
+  return html.replace('</head>', `${css}</head>`)
+}
+
 function rewriteHtml(html, page, detailProduct = null){
   // Make root-relative WoodMart assets resolve on Vercel exactly like they did in the local saved render.
   html = html.replace(/(["'(=\s])\/perfumes\//g, `$1${perfRemote}/`)
@@ -269,6 +296,7 @@ function rewriteHtml(html, page, detailProduct = null){
   html = html.replaceAll('http://woodmart.xtemos.comhttps://woodmart.xtemos.com', 'https://woodmart.xtemos.com')
   html = rewriteNavigation(html)
   html = applyProductDetail(html, detailProduct)
+  html = applyTaraBranding(html)
 
   // Runtime guard: WoodMart's remote JS can rehydrate links after load, so rewrite and intercept every click.
   const cleanup = `<style id="static-clone-cleanup">.mfp-bg,.mfp-wrap,.wd-close-side,.xts-buy,.xts-show-demos,.xts-demos-preview,.xts-promo-popup,.wd-popup,.wd-promo-popup,a[href*="themeforest"],a[href*="xtemos.com/item/woodmart"],a[href*="woodmart.xtemos.com/main"]{display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important}html,body{overflow:auto!important}.wd-product img,.woocommerce-product-gallery__image img{object-fit:contain!important;background:#fff!important}</style><script>(function(){function localFor(h){if(!h)return null;try{var u=new URL(h,location.origin);if(u.origin===location.origin)return null;if(u.hostname!=='woodmart.xtemos.com')return null;if(/^\\/product\\//.test(u.pathname)||/^\\/perfumes\\/product\\//.test(u.pathname))return '/product/${products[0].slug}/';if(u.pathname==='/perfumes/'&&u.search.indexOf('add-to-cart=')>=0)return '/checkout/';if(/^\\/perfumes\\/(cart|checkout)\\/?$/.test(u.pathname))return '/checkout/';if(/^\\/perfumes\\//.test(u.pathname))return '/';return '/'}catch(e){return null}}function rewriteWoodmartLinks(){document.querySelectorAll('a[href],form[action]').forEach(function(el){var attr=el.tagName==='FORM'?'action':'href';var target=localFor(el.getAttribute(attr));if(target)el.setAttribute(attr,target)})}function killWoodmartDemo(){rewriteWoodmartLinks();document.querySelectorAll('.mfp-bg,.mfp-wrap,.wd-close-side,.xts-buy,.xts-show-demos,.xts-demos-preview,.xts-promo-popup,.wd-popup,.wd-promo-popup,a[href*="themeforest"],a[href*="xtemos.com/item/woodmart"],a[href*="woodmart.xtemos.com/main"]').forEach(function(e){e.remove()});document.querySelectorAll('a,button,div,span').forEach(function(e){if(/Buy\\s+WoodMart/i.test((e.textContent||'').trim())){var t=e.closest('a,button,.xts-buy,.xts-demos-preview,.xts-show-demos')||e;e.remove?t.remove():t.style.display='none'}});document.documentElement.style.overflow='auto';if(document.body)document.body.style.overflow='auto'}document.addEventListener('click',function(ev){var a=ev.target&&ev.target.closest&&ev.target.closest('a[href]');if(!a)return;var target=localFor(a.getAttribute('href'));if(target){ev.preventDefault();ev.stopPropagation();location.href=target}},true);killWoodmartDemo();document.addEventListener('DOMContentLoaded',killWoodmartDemo);window.addEventListener('load',killWoodmartDemo);new MutationObserver(killWoodmartDemo).observe(document.documentElement,{childList:true,subtree:true,attributes:true,attributeFilter:['href','action']});})();</script>`
@@ -288,6 +316,7 @@ function copyPage(srcName, outPath, page, detailProduct = null){
 
 clean()
 copyProductImages()
+copyLogo()
 copyPage('home-full.html', path.join(dist, 'index.html'), 'home')
 copyPage('home-full.html', path.join(dist, 'home-full.html'), 'home')
 copyPage('product-full.html', path.join(dist, 'product-full.html'), 'product', products[0])
