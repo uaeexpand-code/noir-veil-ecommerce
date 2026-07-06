@@ -708,6 +708,24 @@ body.tara-cart-open{overscroll-behavior:none!important;touch-action:none!importa
 .wd-footer .wd-d46e65a9 img{max-width:230px!important;opacity:.7!important}
 }
 </style>
+<style id="tara-reviews-css">
+.tara-reviews-section{margin:96px auto 88px!important;padding:0 clamp(16px,4vw,64px)!important;max-width:1440px!important;direction:rtl!important}
+.tara-reviews-head{text-align:center!important;margin:0 auto 34px!important}
+.tara-reviews-kicker{display:block!important;margin-bottom:8px!important;color:#8d7865!important;font-size:13px!important;font-weight:700!important;letter-spacing:.04em!important}
+.tara-reviews-head h2{margin:0!important;color:#111!important;font-size:clamp(32px,4vw,54px)!important;line-height:1.15!important;font-weight:500!important}
+.tara-reviews-head p{margin:14px auto 0!important;max-width:620px!important;color:#6d6259!important;font-size:15px!important;line-height:1.8!important}
+.tara-reviews-rail{display:flex!important;gap:18px!important;overflow-x:auto!important;overflow-y:hidden!important;scroll-snap-type:x mandatory!important;padding:0 0 18px!important;direction:rtl!important;scrollbar-color:#d7d0c8 transparent!important}
+.tara-review-card{flex:0 0 clamp(230px,24vw,340px)!important;border:1px solid #ded8d0!important;background:#fff!important;scroll-snap-align:start!important;line-height:0!important}
+.tara-review-card img{display:block!important;width:100%!important;aspect-ratio:4/5!important;height:auto!important;object-fit:cover!important;border:0!important;border-radius:0!important}
+@media(max-width:760px){
+  .tara-reviews-section{margin:64px auto 58px!important;padding:0 0 0 14px!important}
+  .tara-reviews-head{padding:0 18px!important;margin-bottom:24px!important}
+  .tara-reviews-head h2{font-size:34px!important}
+  .tara-reviews-head p{font-size:13px!important}
+  .tara-reviews-rail{gap:12px!important;padding-right:18px!important}
+  .tara-review-card{flex-basis:76%!important}
+}
+</style>
 </head>
 
 <body class="home wp-singular page-template-default page page-id-235 wp-theme-woodmart wp-child-theme-woodmart-child theme-woodmart woocommerce-no-js wd wrapper-custom categories-accordion-on woodmart-ajax-shop-on hide-larger-price wd-header-overlap"><div class="tara-client-strip">Free UAE delivery on orders over <span dir="ltr">AED 300</span></div>
@@ -1967,7 +1985,32 @@ body.tara-cart-open{overscroll-behavior:none!important;touch-action:none!importa
     </section></main>
 		
 </div>
-							<footer class="wd-footer footer-container color-scheme-light">
+							<section class="tara-reviews-section" aria-labelledby="tara-reviews-title">
+  <div class="tara-reviews-head">
+    <span class="tara-reviews-kicker">تجارب عملائنا</span>
+    <h2 id="tara-reviews-title">تقييمات حقيقية بالصور</h2>
+    <p>لقطات ورسائل من عميلات تارا بعد تجربة المنتجات.</p>
+  </div>
+  <div class="tara-reviews-rail" aria-label="صور تقييمات العملاء">
+    <figure class="tara-review-card"><img loading="lazy" decoding="async" src="/images/reviews/review-01.webp" alt="تقييم عميل 1"></figure>
+    <figure class="tara-review-card"><img loading="lazy" decoding="async" src="/images/reviews/review-02.webp" alt="تقييم عميل 2"></figure>
+    <figure class="tara-review-card"><img loading="lazy" decoding="async" src="/images/reviews/review-03.webp" alt="تقييم عميل 3"></figure>
+    <figure class="tara-review-card"><img loading="lazy" decoding="async" src="/images/reviews/review-04.webp" alt="تقييم عميل 4"></figure>
+    <figure class="tara-review-card"><img loading="lazy" decoding="async" src="/images/reviews/review-05.webp" alt="تقييم عميل 5"></figure>
+    <figure class="tara-review-card"><img loading="lazy" decoding="async" src="/images/reviews/review-06.webp" alt="تقييم عميل 6"></figure>
+    <figure class="tara-review-card"><img loading="lazy" decoding="async" src="/images/reviews/review-07.webp" alt="تقييم عميل 7"></figure>
+    <figure class="tara-review-card"><img loading="lazy" decoding="async" src="/images/reviews/review-08.webp" alt="تقييم عميل 8"></figure>
+    <figure class="tara-review-card"><img loading="lazy" decoding="async" src="/images/reviews/review-09.webp" alt="تقييم عميل 9"></figure>
+    <figure class="tara-review-card"><img loading="lazy" decoding="async" src="/images/reviews/review-10.webp" alt="تقييم عميل 10"></figure>
+    <figure class="tara-review-card"><img loading="lazy" decoding="async" src="/images/reviews/review-11.webp" alt="تقييم عميل 11"></figure>
+    <figure class="tara-review-card"><img loading="lazy" decoding="async" src="/images/reviews/review-12.webp" alt="تقييم عميل 12"></figure>
+    <figure class="tara-review-card"><img loading="lazy" decoding="async" src="/images/reviews/review-13.webp" alt="تقييم عميل 13"></figure>
+    <figure class="tara-review-card"><img loading="lazy" decoding="async" src="/images/reviews/review-14.webp" alt="تقييم عميل 14"></figure>
+    <figure class="tara-review-card"><img loading="lazy" decoding="async" src="/images/reviews/review-15.webp" alt="تقييم عميل 15"></figure>
+    <figure class="tara-review-card"><img loading="lazy" decoding="async" src="/images/reviews/review-16.webp" alt="تقييم عميل 16"></figure>
+  </div>
+</section>
+<footer class="wd-footer footer-container color-scheme-light">
 												<link rel="stylesheet" id="wd-footer-base-css" href="https://woodmart.xtemos.com/perfumes/wp-content/themes/woodmart/css/parts/footer-base.css?ver=8.5.0" type="text/css" media="all" /> 														<div class="container main-footer wd-entry-content">
 										<link rel="stylesheet" id="wd-mc4wp-css" href="https://woodmart.xtemos.com/perfumes/wp-content/themes/woodmart/css/parts/int-mc4wp.css?ver=8.5.0" type="text/css" media="all" /> 						<style id="wd-style-blocks-259-inline-css" data-type="wd-style-blocks-259">
 				.wd.wd .wd-19d62820{font-size: 30px;line-height: 1.2em;--wd-width: 594px;}.wd.wd .wd-d8665e4e{padding-top: 80px;margin-bottom: 80px;}.wd.wd .wd-a2f8dcea{font-size: 30px;line-height: 1.2em;}.wd.wd .wd-d5cb8a8b{--wd-width: 373px;}.wd.wd .wd-5a6e759d{--btn-accented-color: #333333;--btn-accented-bgcolor: #ffffff;--btn-accented-color-hover: #333333;--btn-accented-bgcolor-hover: #e6e6e6;--wd-width: 373px;}.wd.wd .wd-3d97ccce .sub-sub-menu > li > a{--sub-menu-color: #ffffff;--sub-menu-color-hover: rgba(255,255,255,0.8);font-weight: 500;font-size: 18px;}.wd.wd .wd-1b106175 .sub-sub-menu > li > a{--sub-menu-color: #ffffff;--sub-menu-color-hover: rgba(255,255,255,0.8);font-weight: 500;font-size: 18px;}.wd.wd .wd-0aa12142{margin-bottom: 80px;}.wd.wd .wd-5ff0a678{justify-content: space-between;align-items: center;align-content: center;flex-wrap: wrap;--wd-row-gap: 10px;padding-top: 20px;padding-bottom: 20px;border-style: solid;border-color: #ffffff;border-width: 2px 0px 0px 0px;}@media (min-width: 769px) {.wd.wd .wd-17dba9e0{flex: 0 1 calc(50% - var(--wd-col-gap) * 2 / 3 );}.wd.wd .wd-b6eec67a{flex: 0 1 calc(25% - var(--wd-col-gap) * 2 / 3 );}.wd.wd .wd-d375fee6{flex: 0 1 calc(25% - var(--wd-col-gap) * 2 / 3 );}}@media (max-width: 1024px) {.wd.wd .wd-19d62820{font-size: 16px;}.wd.wd .wd-d8665e4e{padding-top: 60px;margin-bottom: 60px;}.wd.wd .wd-a2f8dcea{font-size: 24px;}.wd.wd .wd-0aa12142{margin-bottom: 40px;}}@media (max-width: 768.98px) {.wd.wd .wd-19d62820{line-height: 1.6em;}.wd.wd .wd-d8665e4e{padding-top: 40px;margin-bottom: 40px;}.wd.wd .wd-a2f8dcea{font-size: 18px;}:root .wd.wd .wd-17dba9e0{flex: 0 1 calc(100% - var(--wd-col-gap) * 0 / 1 );}.wd.wd .wd-17dba9e0{margin-top: 10px;order: 3;}.wd.wd .wd-3d97ccce .sub-sub-menu > li > a{font-size: 16px;}:root .wd.wd .wd-b6eec67a{flex: 0 1 calc(50% - var(--wd-col-gap) * 1 / 2 );}.wd.wd .wd-b6eec67a{order: 1;}.wd.wd .wd-1b106175 .sub-sub-menu > li > a{font-size: 16px;}:root .wd.wd .wd-d375fee6{flex: 0 1 calc(50% - var(--wd-col-gap) * 1 / 2 );}.wd.wd .wd-d375fee6{order: 2;}}			</style>
