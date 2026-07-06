@@ -28,6 +28,7 @@ const CSS = `<style id="tara-home-header-light">
 .home .whb-header .wd-header-cart>a:before,.home .whb-header .wd-header-cart .wd-tools-icon:before{background-image:${CART_SVG}!important}
 .home .wd-header-mobile-nav .wd-tools-icon:before{color:#111!important}
 .home .wd-header-mobile-nav a{background:rgba(255,255,255,.78)!important;color:#111!important}
+.home .wd-header-lang-switch{display:none!important}
 </style>`
 
 let changed = 0
