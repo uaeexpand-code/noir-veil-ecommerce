@@ -29,6 +29,8 @@ const CSS = `<style id="tara-home-header-light">
 .home .wd-header-mobile-nav .wd-tools-icon:before{color:#111!important}
 .home .wd-header-mobile-nav a{background:rgba(255,255,255,.78)!important;color:#111!important}
 .home .wd-header-lang-switch{display:none!important}
+/* Hide hero overlay heading text */
+.home .wd-slide-container .wd-2e380cb2,.home .wd-slide .wd-2e380cb2{display:none!important}
 </style>`
 
 let changed = 0
